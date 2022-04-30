@@ -13,21 +13,16 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "client")
-public class Client {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Paiment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String reference;
-    private String email;
-    private String nom;
-    private String prenom;
-
-    @Column(columnDefinition = "boolean default true")
-    private Boolean active=true;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date createdAt;
+    private Date datePaiement;
+
+
 
 
 }
