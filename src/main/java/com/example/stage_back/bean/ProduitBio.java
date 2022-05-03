@@ -19,8 +19,8 @@ import java.io.Serializable;
         private String nom;
         private String type;
         @Lob
-        private String labele;
-        private Integer QuantiteDisponible;
+        private String description;
+        private int quantiteDispo;
 
 
     }

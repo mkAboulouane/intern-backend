@@ -12,5 +12,5 @@ import javax.persistence.Entity;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Formation extends Reunion {
     private Double prix;
-    private Integer nombrePlace;
+    private int nombrePlace;
 }

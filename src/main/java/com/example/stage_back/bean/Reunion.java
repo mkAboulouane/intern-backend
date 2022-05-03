@@ -18,7 +18,7 @@ public class Reunion implements Serializable {
     private String nom;
     private String encadrantProf;
     @Lob
-    private String objectif;
+    private String description;
     private String duree;
 
 
