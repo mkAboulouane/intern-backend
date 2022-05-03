@@ -1,6 +1,5 @@
 package com.example.stage_back.bean;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
