@@ -7,26 +7,23 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProduitBio implements Serializable {
+public class CommandeItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nom;
-    private boolean promotion;
-    private boolean selected;
-    private boolean available;
-    private String photoName;
-    @Transient
-    private int quantity;
+    @OneToMany
+    private java.util.List<Formation> formations;
 
-    @Lob
-    private String description;
-    private double prix;
+    @OneToMany
+    private java.util.List<ProduitBio> produitBios;
+
+    private double prixTotal;
 
 
 }

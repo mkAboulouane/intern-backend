@@ -11,6 +11,6 @@ import javax.persistence.Entity;
 @DiscriminatorValue("FORMATION")
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Formation extends Reunion {
-    private Double prix;
+    private double prix;
     private int nombrePlace;
 }

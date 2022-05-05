@@ -20,12 +20,19 @@ public class Paiment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private double prix;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date datePaiement;
 
     @Enumerated(EnumType.STRING)
     private TypePaiment typePaiment;
+
+    @OneToOne
+    private CommandeItem commandeItem;
+
+    @ManyToOne
+    private Client client;
 
 
 

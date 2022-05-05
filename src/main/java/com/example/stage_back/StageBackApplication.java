@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class StageBackApplication {
 
-    public static ConfigurableApplicationContext ctx;
+    private static ConfigurableApplicationContext ctx;
     public static void main(String[] args) {
       ctx =  SpringApplication.run(StageBackApplication.class, args);
     }
@@ -21,14 +21,14 @@ public class StageBackApplication {
         return ctx;
     }
 
-    @Bean
-    CommandLineRunner start(CommandeDao commandeDao){
-        return args -> {
-            for (int i=0;i<=10;i++){
-                Commande commande = new Commande(null);
-                commandeDao.save(commande);
-            }
-        };
-    }
+//    @Bean
+//    CommandLineRunner start(CommandeDao commandeDao){
+//        return args -> {
+//            for (int i=0;i<=10;i++){
+//                Commande commande = new Commande(null);
+//                commandeDao.save(commande);
+//            }
+//        };
+//    }
 
 }

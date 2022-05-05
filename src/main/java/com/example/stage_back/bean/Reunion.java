@@ -20,6 +20,7 @@ public class Reunion implements Serializable {
     @Lob
     private String description;
     private String duree;
+//    String photo = new String[];
 
 
 }
