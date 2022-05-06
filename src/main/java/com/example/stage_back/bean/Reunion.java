@@ -21,6 +21,8 @@ public class Reunion implements Serializable {
     private String description;
     private String duree;
 //    String photo = new String[];
+    @ManyToOne
+    private Commande commande;
 
 
 }

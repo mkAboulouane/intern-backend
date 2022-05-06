@@ -28,8 +28,9 @@ public class Paiment implements Serializable {
     @Enumerated(EnumType.STRING)
     private TypePaiment typePaiment;
 
+
     @OneToOne
-    private CommandeItem commandeItem;
+    private Commande commande;
 
     @ManyToOne
     private Client client;

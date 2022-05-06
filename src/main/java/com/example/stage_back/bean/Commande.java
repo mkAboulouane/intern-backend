@@ -16,14 +16,22 @@ public class Commande implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Client c;
+
+    @OneToMany
+    private java.util.List<Formation> formations;
+
+    @OneToMany
+    private java.util.List<ProduitBio> produitBios;
 
     @ManyToOne
     private Client client;
 
-
-    @OneToOne
+    @OneToOne(mappedBy = "commande" )
     private Paiment paiment;
 
+    private double prixTotal;
 
 
 }
