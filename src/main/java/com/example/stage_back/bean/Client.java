@@ -1,45 +1,84 @@
 package com.example.stage_back.bean;
 
 
+import com.example.stage_back.security.bean.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-public class Client implements Serializable {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
-  private String reference;
-  private String email;
-  private String nom;
-  private String prenom;
-
-  private String photo;
-  @Column(columnDefinition = "boolean default true")
-  private Boolean active=true;
-
-  @JsonFormat(pattern = "yyyy-MM-dd")
-  @Temporal(TemporalType.DATE)
-  private Date createdAt;
-
-  @OneToMany(mappedBy = "client")
-  private java.util.List<Commande> commandes;
-
-  @OneToMany(mappedBy = "client")
-  private java.util.List<Paiment> paiments;
+@Table(name = "client")
+public class Client extends User {
 
 
+    private String photo;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date createdAt;
 
 
+    @Column(columnDefinition = "boolean default false")
+    private Boolean consentementRgpd = false;
+    @Column(length = 500)
+    private String numeroMatricule;
+    @Column(length = 500)
+    private String emailPrincipale;
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String resume;
+    @Column(length = 500)
+    private String natureImplication;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean formationEnManagement = false;
+    @Column(columnDefinition = "boolean default false")
+    private boolean credentialsNonExpired = false;
+    @Column(columnDefinition = "boolean default false")
+    private boolean enabled = false;
+    @Column(columnDefinition = "boolean default false")
+    private boolean accountNonExpired = false;
+    @Column(columnDefinition = "boolean default false")
+    private boolean accountNonLocked = false;
+    @Column(columnDefinition = "boolean default false")
+    private boolean passwordChanged = false;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date updatedAt;
+
+
+    @OneToMany(mappedBy = "client")
+    @ToString.Exclude
+    private List<Commande> commandes;
+
+    @OneToMany(mappedBy = "client")
+    @ToString.Exclude
+    private List<Paiment> paiments;
+
+
+    // kafka
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Client client = (Client) o;
+        return id != null && Objects.equals(id, client.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

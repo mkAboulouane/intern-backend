@@ -28,7 +28,8 @@ public class StageBackApplication {
         return ctx;
     }
 
-/*    @Bean
+/*
+    @Bean
     CommandLineRunner start(CommandeDao commandeDao, ClientDao clientDao){
         return args -> {
             for (int i=0;i<=10;i++){
@@ -39,6 +40,8 @@ public class StageBackApplication {
 //                commandeDao.save(commande);
             }
         };
-    }*/
+    }
+    */
+
 
 }

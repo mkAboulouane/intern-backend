@@ -1,14 +1,18 @@
 package com.example.stage_back.bean;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 public class Commande implements Serializable {
@@ -17,21 +21,31 @@ public class Commande implements Serializable {
     private Long id;
 
     @ManyToOne
-    private Client c;
-
-    @OneToMany
-    private java.util.List<Formation> formations;
-
-    @OneToMany
-    private java.util.List<ProduitBio> produitBios;
-
-    @ManyToOne
     private Client client;
+
+    @ManyToMany
+    @ToString.Exclude
+    private List<Formation> formations;
+
+    @ManyToMany
+    @ToString.Exclude
+    private List<ProduitBio> produitBios;
 
     @OneToOne(mappedBy = "commande" )
     private Paiment paiment;
 
     private double prixTotal;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Commande commande = (Commande) o;
+        return id != null && Objects.equals(id, commande.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
