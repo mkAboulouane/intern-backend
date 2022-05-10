@@ -1,4 +1,4 @@
-package fst.sir.stage_back.util;
+package fst.sir.stage_back.service.util;
 
 public class StringUtil {
     private static Long i=100L;

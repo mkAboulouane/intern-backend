@@ -59,6 +59,7 @@ public class StageBackApplication {
         };
     }
 
+
     private static void addPermissionForAdmin(List<Permission> permissions) {
         permissions.add(new Permission("CategorieProduit.edit"));
         permissions.add(new Permission("CategorieProduit.list"));
