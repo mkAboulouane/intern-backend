@@ -30,13 +30,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers("/actuator/health").permitAll();
-        http.authorizeRequests().antMatchers("/actuator/info").permitAll();
+        http.authorizeRequests().antMatchers("/regsiter").permitAll();
+        http.authorizeRequests().antMatchers("/formations").permitAll();
+        http.authorizeRequests().antMatchers("/congres").permitAll();
+        http.authorizeRequests().antMatchers("/materiel-biomedical").permitAll();
+        http.authorizeRequests().antMatchers("/etude-etrange").permitAll();
+        http.authorizeRequests().antMatchers("/contacte").permitAll();
+        http.authorizeRequests().antMatchers("/").permitAll();
 
-        http.authorizeRequests().antMatchers("/api/admin/login").permitAll();
-        http.authorizeRequests().antMatchers("/api/chercheur/login").permitAll();
-        http.authorizeRequests().antMatchers("/api/admin/").hasAnyAuthority(AuthoritiesConstants.ADMIN);
-        http.authorizeRequests().antMatchers("/api/chercheur/").hasAnyAuthority(AuthoritiesConstants.CLIENT);
+        http.authorizeRequests().antMatchers("/admin/").hasAnyAuthority(AuthoritiesConstants.ADMIN);
+        http.authorizeRequests().antMatchers("/").hasAnyAuthority(AuthoritiesConstants.CLIENT);
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
         http.addFilterBefore(new JWTAuthorizationFiler(), UsernamePasswordAuthenticationFilter.class);

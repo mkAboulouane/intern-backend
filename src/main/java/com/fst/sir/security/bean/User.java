@@ -12,11 +12,10 @@ import java.util.Date;
 @Entity
 @Table(name = "user_app")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class User implements UserDetails    {
+public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
-
     protected boolean credentialsNonExpired;
     protected boolean enabled;
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
@@ -25,9 +24,6 @@ public class User implements UserDetails    {
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
     @Temporal(TemporalType.TIMESTAMP)
     protected Date updatedAt;
-
-
-
     protected String email;
 
     protected String phone;
@@ -51,6 +47,14 @@ public class User implements UserDetails    {
         super();
     }
 
+    public User(String username) {
+        this.username = username;
+        this.password = username;
+        this.prenom = username;
+        this.nom = username;
+        this.email = username;
+    }
+
     public User(String email, String phone, String username, String password) {
         this.email = email;
         this.phone = phone;
@@ -70,10 +74,6 @@ public class User implements UserDetails    {
         return accountNonExpired;
     }
 
-    public boolean getAccountNonLocked() {
-        return accountNonLocked;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -81,6 +81,11 @@ public class User implements UserDetails    {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public boolean getAccountNonLocked() {
+        return accountNonLocked;
+    }
+
     public boolean getPasswordChanged() {
         return passwordChanged;
     }
@@ -210,6 +215,5 @@ public class User implements UserDetails    {
     public void setNom(String nom) {
         this.nom = nom;
     }
-
 
 }

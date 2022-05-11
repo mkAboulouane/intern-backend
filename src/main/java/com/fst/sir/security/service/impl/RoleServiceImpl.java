@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -75,6 +76,17 @@ public class RoleServiceImpl implements RoleService {
         return 1;
     }
 
+    //    @Override
+//    public Role save(Role role) {
+//        Role r = findByAuthority(role.getAuthority());
+//        if (r != null) return r;
+//        List<Permission> perms = new ArrayList<>();
+//        role.getPermissions().forEach(perm -> {
+//            perms.add(permissionService.save(perm));
+//        });
+//        role.setPermissions(perms);
+//        return roleDao.save(role);
+//    }
     @Override
     public Role save(Role role) {
         Role r = findByAuthority(role.getAuthority());
@@ -92,6 +104,5 @@ public class RoleServiceImpl implements RoleService {
         if (username == null) return null;
         return roleDao.findAllByUsersUsername(username);
     }
-
 
 }

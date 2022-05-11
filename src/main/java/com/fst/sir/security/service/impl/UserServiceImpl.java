@@ -80,6 +80,7 @@ public class UserServiceImpl implements UserService {
             user.setCredentialsNonExpired(true);
             user.setEnabled(true);
             user.setPasswordChanged(false);
+            user.setAccountNonExpired(true);
             user.setCreatedAt(new Date());
 
             if (user.getRoles() != null) {

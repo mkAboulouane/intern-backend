@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
 @Table(name = "role_app")
-public class Role  implements GrantedAuthority {
+public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -86,5 +87,4 @@ public class Role  implements GrantedAuthority {
     public void setUsers(List<User> users) {
         this.users = users;
     }
-
 }

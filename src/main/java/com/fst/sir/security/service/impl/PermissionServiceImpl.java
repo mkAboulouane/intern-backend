@@ -16,6 +16,11 @@ public class PermissionServiceImpl implements PermissionService {
     public Permission save(Permission permission) {
         Permission perm = permissionDao.findByName(permission.getName());
         return perm == null ? permissionDao.save(permission) : perm;
+//        if (perm == null) {
+//           return permissionDao.save(permission);
+//        }else {
+//            return perm;
+//        }
     }
 
 
