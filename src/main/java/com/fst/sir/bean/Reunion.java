@@ -25,6 +25,7 @@ public class Reunion {
     private String duree;
 
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

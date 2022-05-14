@@ -21,7 +21,6 @@ public class ProduitBio{
     private boolean promotion;
     private boolean selected;
     private boolean available;
-    private String photoName;
 
 
     @Transient

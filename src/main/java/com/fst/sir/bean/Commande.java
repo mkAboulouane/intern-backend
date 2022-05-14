@@ -33,17 +33,6 @@ public class Commande {
     @ManyToOne
     private User user;
 
-    @ManyToMany
-    @ToString.Exclude
-    private List<Formation> formations;
-
-    @ManyToMany
-    @ToString.Exclude
-    private List<ProduitBio> produitBios;
-
-    @OneToOne(mappedBy = "commande" )
-    private Paiment paiment;
-
     private double prixTotal;
 
     @Override

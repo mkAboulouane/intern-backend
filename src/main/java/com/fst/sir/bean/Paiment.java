@@ -27,15 +27,12 @@ public class Paiment {
     @Temporal(TemporalType.DATE)
     private Date payedAt;
 
+    @OneToOne
+    private Panier panier;
+
     @Enumerated(EnumType.STRING)
     private TypePaiment typePaiment;
 
-
-    @OneToOne
-    private Commande commande;
-
-    @ManyToOne
-    private User user;
 
 
     @Override
