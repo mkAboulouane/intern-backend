@@ -32,14 +32,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/regsiter").permitAll();
         http.authorizeRequests().antMatchers("/formations").permitAll();
-        http.authorizeRequests().antMatchers("/congres").permitAll();
+        http.authorizeRequests().antMatchers("/congres-seminaires").permitAll();
         http.authorizeRequests().antMatchers("/materiel-biomedical").permitAll();
-        http.authorizeRequests().antMatchers("/etude-etrange").permitAll();
-        http.authorizeRequests().antMatchers("/contacte").permitAll();
+        http.authorizeRequests().antMatchers("/study-abroad").permitAll();
+        http.authorizeRequests().antMatchers("/contact").permitAll();
         http.authorizeRequests().antMatchers("/").permitAll();
 
-        http.authorizeRequests().antMatchers("/admin/").hasAnyAuthority(AuthoritiesConstants.ADMIN);
-        http.authorizeRequests().antMatchers("/").hasAnyAuthority(AuthoritiesConstants.CLIENT);
+        http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
+        http.authorizeRequests().antMatchers("/gerant/**").hasAnyAuthority(AuthoritiesConstants.GERANT);
+        http.authorizeRequests().antMatchers("/app/**").hasAnyAuthority(AuthoritiesConstants.CLIENT);
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
         http.addFilterBefore(new JWTAuthorizationFiler(), UsernamePasswordAuthenticationFilter.class);
