@@ -12,7 +12,8 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class ProduitBio{
+public class ProduitBio
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +29,7 @@ public class ProduitBio{
 
     @Lob
     private String description;
+    private String photos;
     private double prix;
 
     @Override

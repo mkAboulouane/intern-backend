@@ -10,16 +10,6 @@ import java.util.List;
 @Repository
 public interface PaimentDao extends JpaRepository<Paiment,Long> {
 
-//    List<Paiment> findByClientUsername(String username);
-
-    List<Paiment> findByTypePaiment(TypePaiment typePaiment);
-
-//    List<Paiment> findByPrixGreaterThanAndLessThan(double min, double max);
-
-    Paiment findByCommandeReference(String reference);
-    int deleteByCommandeReference(String reference);
-
-//    int deleteByClientUsername(String username);
 
 
 }

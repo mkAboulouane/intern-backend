@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/study-abroad").permitAll();
         http.authorizeRequests().antMatchers("/contact").permitAll();*/
 
-        http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
+//        http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
+        http.authorizeRequests().antMatchers("/admin/").permitAll();
         http.authorizeRequests().antMatchers("/gerant/**").hasAnyAuthority(AuthoritiesConstants.GERANT);
         http.authorizeRequests().antMatchers("/app/**").hasAnyAuthority(AuthoritiesConstants.CLIENT);
 
