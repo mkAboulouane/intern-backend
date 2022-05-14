@@ -34,11 +34,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        if (email == null) {
+            return null;
+        }else
+            return userDao.findByPhone(email);
+
+    }
+
+    @Override
+    public User findByPhone(String phone) {
+        if (phone == null) {
+            return null;
+        }
+       else return userDao.findByPhone(phone);
+    }
+
+    @Override
     public User findByUsername(String username) {
         if (username == null)
             return null;
         return userDao.findByUsername(username);
     }
+
+
 
     @Override
     public User findByUsernameWithRoles(String username) {
@@ -68,12 +87,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         User foundedUserByUsername = findByUsername(user.getUsername());
-        User foundedUserByEmail = userDao.findByEmail(user.getEmail());
-        if (foundedUserByUsername != null || foundedUserByEmail != null) return null;
+        User foundedUserByEmail = findByEmail(user.getEmail());
+        User foundedUserByPhone = findByPhone(user.getPhone());
+
+        if (foundedUserByUsername != null || foundedUserByEmail != null || foundedUserByPhone != null) {
+            return null;
+        }
         else {
-            if (user.getPassword() == null || user.getPassword().isEmpty()) {
-                user.setPassword((user.getUsername()));
-            }
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setAccountNonExpired(true);
             user.setAccountNonLocked(true);
@@ -90,39 +110,11 @@ public class UserServiceImpl implements UserService {
                 }
                 user.setRoles(roles);
             }
-            User mySaved = userDao.save(user);
 
-            return mySaved;
+            return userDao.save(user);
         }
     }
 
-//    @Override
-//    public User save(User user) {
-//        User foundedUserByUsername = findByUsername(user.getUsername());
-//        User foundedUserByEmail = userDao.findByEmail(user.getEmail());
-//        User foundedUserByPhone = userDao.findByPhone(user.getPhone());
-//        if (foundedUserByUsername != null || foundedUserByEmail != null || foundedUserByPhone != null) return null;
-//        else {
-//            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//            user.setAccountNonExpired(true);
-//            user.setAccountNonLocked(true);
-//            user.setCredentialsNonExpired(true);
-//            user.setEnabled(true);
-//            user.setPasswordChanged(false);
-//            user.setCreatedAt(new Date());
-//            user.setAccountNonExpired(true);
-//
-//            if (user.getRoles() != null) {
-//                Collection<Role> roles = new ArrayList<Role>();
-//                for (Role role : user.getRoles()) {
-//                    roles.add(roleService.save(role));
-//                }
-//                user.setRoles(roles);
-//            }
-//
-//            return userDao.save(user);
-//        }
-//    }
 
     @Override
     public User update(User user) {

@@ -10,6 +10,10 @@ public interface UserService extends UserDetailsService {
 
     List<User> findAll();
 
+    User findByEmail(String email);
+
+    User findByPhone(String phone);
+
     User findByUsername(String username);
 
     User findById(Long id);
