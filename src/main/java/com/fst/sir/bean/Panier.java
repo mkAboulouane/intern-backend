@@ -11,7 +11,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Panier {
@@ -35,7 +34,7 @@ public class Panier {
     @OneToOne
     private Formation formation;
 
-    @OneToMany
+    @OneToMany(mappedBy = "panier")
     private List<ProduitPanierItem> produitPanierItems;
 
 

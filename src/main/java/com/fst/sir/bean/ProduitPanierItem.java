@@ -17,6 +17,7 @@ public class ProduitPanierItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Double prix;
 
     @OneToOne
     private ProduitBio produitBio;
