@@ -1,0 +1,39 @@
+package com.fst.sir.ws.rest.provided.facade.gerant;
+
+import com.fst.sir.bean.ProduitBio;
+import com.fst.sir.service.admin.facade.ProduitBioAdminService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("gerant/produit-bio")
+public class ProduitBioRestGerant {
+    @Autowired
+    private ProduitBioAdminService produitBioAdminService;
+
+    @GetMapping("/")
+    public List<ProduitBio> findAll() {
+        return produitBioAdminService.findAll();
+    }
+
+    @GetMapping("/nom/{nom}")
+    public ProduitBio findByNom(@PathVariable String nom) {
+        return produitBioAdminService.findByNom(nom);
+    }
+
+    public int deleteByNom(String nom) {
+        return produitBioAdminService.deleteByNom(nom);
+    }
+
+    @PostMapping("/")
+    public ProduitBio save(@RequestBody ProduitBio produitBio) {
+        return produitBioAdminService.save(produitBio);
+    }
+
+    @PutMapping("/")
+    public ProduitBio update(@RequestBody ProduitBio produitBio) {
+        return produitBioAdminService.update(produitBio);
+    }
+}
