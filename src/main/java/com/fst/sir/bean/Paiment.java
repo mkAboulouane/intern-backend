@@ -21,6 +21,7 @@ public class Paiment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String reference;
 
     private double prix;
     @JsonFormat(pattern = "yyyy-MM-dd")
