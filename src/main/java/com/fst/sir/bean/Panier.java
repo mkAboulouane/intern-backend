@@ -3,7 +3,6 @@ package com.fst.sir.bean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fst.sir.enums.EtatCommande;
 import com.fst.sir.security.bean.User;
-import com.fst.sir.service.admin.facade.ProduitPanierItem;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Date;

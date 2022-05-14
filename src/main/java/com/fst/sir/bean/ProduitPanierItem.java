@@ -1,4 +1,4 @@
-package com.fst.sir.service.admin.facade;
+package com.fst.sir.bean;
 
 
 import com.fst.sir.bean.Panier;

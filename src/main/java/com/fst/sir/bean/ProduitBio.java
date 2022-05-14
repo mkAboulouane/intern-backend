@@ -1,9 +1,11 @@
 package com.fst.sir.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -20,17 +22,23 @@ public class ProduitBio
 
     private String nom;
     private boolean promotion;
-    private boolean selected;
+    private boolean visible;
     private boolean available;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date addedAt;
 
-    @Transient
     private int quantity;
 
     @Lob
     private String description;
     private String photos;
     private double prix;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date updatedAt;
 
     @Override
     public boolean equals(Object o) {

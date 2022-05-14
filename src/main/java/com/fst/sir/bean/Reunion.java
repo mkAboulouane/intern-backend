@@ -1,10 +1,12 @@
 package com.fst.sir.bean;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -23,7 +25,16 @@ public class Reunion {
     @Lob
     private String description;
     private String duree;
+    private boolean visible;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date addedAt;
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date updatedAt;
 
 
     @Override

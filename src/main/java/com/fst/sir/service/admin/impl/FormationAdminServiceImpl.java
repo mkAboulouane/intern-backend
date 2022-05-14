@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,6 +20,7 @@ public class FormationAdminServiceImpl implements FormationAdminService {
     public Formation save(Formation formation) {
         Formation entity = findByNom(formation.getNom());
         if (entity == null) {
+            formation.setAddedAt(new Date());
             return formationDao.save(formation);
         }
         return null;
@@ -33,6 +35,8 @@ public class FormationAdminServiceImpl implements FormationAdminService {
     public Formation update(Formation formation) {
         Formation formation1 = findByNom(formation.getNom());
         if (formation1 != null) {
+            formation.setUpdatedAt(new Date());
+            formation.setAddedAt(formation1.getAddedAt());
             formation.setId(formation1.getId());
             return formationDao.save(formation);
         }
