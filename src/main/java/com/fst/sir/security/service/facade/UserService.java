@@ -18,7 +18,15 @@ public interface UserService extends UserDetailsService {
 
     void deleteById(Long id);
 
+
+    /*  Client  */
     User save(User user);
+
+    /*  Admin  */
+    public User saveAdmin(User user);
+
+    /*  Gerant  */
+    public User saveAGENT(User user);
 
     User update(User user);
 

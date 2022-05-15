@@ -32,6 +32,75 @@ public class UserServiceImpl implements UserService {
     @Autowired
     PasswordEncoder bCryptPasswordEncoder;
 
+    /*  pour un AGENT */
+    @Override
+    public User saveAGENT(User user) {
+        User foundedUserByUsername = findByUsername(user.getUsername());
+        User foundedUserByEmail = userDao.findByEmail(user.getEmail());
+        User foundedUserByPhone = userDao.findByPhone(user.getPhone());
+        if (foundedUserByUsername != null || foundedUserByEmail != null || foundedUserByPhone != null) return null;
+        else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setAccountNonExpired(true);
+            user.setAccountNonLocked(true);
+            user.setCredentialsNonExpired(true);
+            user.setEnabled(true);
+            user.setPasswordChanged(false);
+            user.setCreatedAt(new Date());
+
+            Role roleForAdmin = new Role();
+            roleForAdmin.setAuthority(AuthoritiesConstants.AGENT);
+            user.getRoles().add(roleForAdmin);
+
+            if (user.getRoles() != null) {
+                Collection<Role> roles = new ArrayList<Role>();
+                for (Role role : user.getRoles()) {
+                    roles.add(roleService.save(role));
+                }
+                user.setRoles(roles);
+            }
+
+            User mySaved = userDao.save(user);
+
+            return mySaved;
+        }       }
+
+    /*  pour un Admin */
+    @Override
+    public User saveAdmin(User user) {
+        User foundedUserByUsername = findByUsername(user.getUsername());
+        User foundedUserByEmail = userDao.findByEmail(user.getEmail());
+        User foundedUserByPhone = userDao.findByPhone(user.getPhone());
+        if (foundedUserByUsername != null || foundedUserByEmail != null || foundedUserByPhone != null) return null;
+        else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setAccountNonExpired(true);
+            user.setAccountNonLocked(true);
+            user.setCredentialsNonExpired(true);
+            user.setEnabled(true);
+            user.setPasswordChanged(false);
+            user.setCreatedAt(new Date());
+
+            Role roleForAdmin = new Role();
+            roleForAdmin.setAuthority(AuthoritiesConstants.ADMIN);
+            user.getRoles().add(roleForAdmin);
+
+            if (user.getRoles() != null) {
+                Collection<Role> roles = new ArrayList<Role>();
+                for (Role role : user.getRoles()) {
+                    roles.add(roleService.save(role));
+                }
+                user.setRoles(roles);
+            }
+
+            User mySaved = userDao.save(user);
+
+            return mySaved;
+        }
+    }
+
+
+
     @Override
     public User findByPhone(String phone) {
         return userDao.findByPhone(phone);
