@@ -32,29 +32,73 @@ public class StageBackApplication {
     }
 
     @Bean
-    CommandLineRunner start(UserService userService, RoleService roleService) {
+    CommandLineRunner start(UserService userService) {
         return args -> {
 
             if (false) {
 
                 // Role admin
-                User userForAdmin = new User("khalil");
+                User userForClient = new User("adam","asdd","asdasd","06327813");
 
-                Role roleForAdmin = new Role();
-                roleForAdmin.setAuthority(AuthoritiesConstants.ADMIN);
-                List<Permission> permissionsForAdmin = new ArrayList<>();
-                addPermissionForAdmin(permissionsForAdmin);
-                roleForAdmin.setPermissions(permissionsForAdmin);
-                if (userForAdmin.getRoles() == null)
-                    userForAdmin.setRoles(new ArrayList<>());
+                Role roleForGerant = new Role();
+                roleForGerant.setAuthority(AuthoritiesConstants.AGENT);
+                List<Permission> permissionsForClient = new ArrayList<>();
+                addPermissionForGerant(permissionsForClient);
+                roleForGerant.setPermissions(permissionsForClient);
+                if (userForClient.getRoles() == null)
+                    userForClient.setRoles(new ArrayList<>());
 
-                userForAdmin.getRoles().add(roleForAdmin);
-                userService.save(userForAdmin);
+                userForClient.getRoles().add(roleForGerant);
+                userService.save(userForClient);
             }
         };
     }
 
-    private static void addPermissionForAdmin(List<Permission> permissions){
+    private static void addPermissionForGerant(List<Permission> permissions) {
+        permissions.add(new Permission("DisciplineScientifiqueChercheur.edit"));
+        permissions.add(new Permission("DisciplineScientifiqueChercheur.list"));
+        permissions.add(new Permission("DisciplineScientifiqueChercheur.view"));
+        permissions.add(new Permission("DisciplineScientifiqueChercheur.add"));
+        permissions.add(new Permission("DisciplineScientifiqueChercheur.delete"));
+        permissions.add(new Permission("KeyWord.edit"));
+        permissions.add(new Permission("KeyWord.list"));
+        permissions.add(new Permission("KeyWord.view"));
+        permissions.add(new Permission("KeyWord.add"));
+        permissions.add(new Permission("KeyWord.delete"));
+        permissions.add(new Permission("Distinction.edit"));
+        permissions.add(new Permission("Distinction.list"));
+        permissions.add(new Permission("Distinction.view"));
+        permissions.add(new Permission("Distinction.add"));
+        permissions.add(new Permission("Distinction.delete"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.edit"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.list"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.view"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.add"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.delete"));
+        permissions.add(new Permission("DisciplineScientifique.edit"));
+        permissions.add(new Permission("DisciplineScientifique.list"));
+        permissions.add(new Permission("DisciplineScientifique.view"));
+        permissions.add(new Permission("DisciplineScientifique.add"));
+        permissions.add(new Permission("DisciplineScientifique.delete"));
+        permissions.add(new Permission("DistinctionDisciplineScientifique.edit"));
+        permissions.add(new Permission("DistinctionDisciplineScientifique.list"));
+        permissions.add(new Permission("DistinctionDisciplineScientifique.view"));
+        permissions.add(new Permission("DistinctionDisciplineScientifique.add"));
+        permissions.add(new Permission("DistinctionDisciplineScientifique.delete"));
+        permissions.add(new Permission("DisciplineScientifiqueErcAssociation.edit"));
+        permissions.add(new Permission("DisciplineScientifiqueErcAssociation.list"));
+        permissions.add(new Permission("DisciplineScientifiqueErcAssociation.view"));
+        permissions.add(new Permission("DisciplineScientifiqueErcAssociation.add"));
+        permissions.add(new Permission("DisciplineScientifiqueErcAssociation.delete"));
+        permissions.add(new Permission("IdentifiantAuteurExpert.edit"));
+        permissions.add(new Permission("IdentifiantAuteurExpert.list"));
+        permissions.add(new Permission("IdentifiantAuteurExpert.view"));
+        permissions.add(new Permission("IdentifiantAuteurExpert.add"));
+        permissions.add(new Permission("IdentifiantAuteurExpert.delete"));
+    }
+
+
+/*    private static void addPermissionForAdmin(List<Permission> permissions){
         permissions.add(new Permission("DisciplineScientifiqueChercheur.edit"));
         permissions.add(new Permission("DisciplineScientifiqueChercheur.list"));
         permissions.add(new Permission("DisciplineScientifiqueChercheur.view"));
@@ -148,6 +192,31 @@ public class StageBackApplication {
     }
 
 
+    private static void addPermissionForClient(List<Permission> permissions){
+        permissions.add(new Permission("KeyWord.edit"));
+        permissions.add(new Permission("KeyWord.list"));
+        permissions.add(new Permission("KeyWord.view"));
+        permissions.add(new Permission("KeyWord.add"));
+        permissions.add(new Permission("KeyWord.delete"));
+        permissions.add(new Permission("Distinction.edit"));
+        permissions.add(new Permission("Distinction.list"));
+        permissions.add(new Permission("Distinction.view"));
+        permissions.add(new Permission("Distinction.add"));
+        permissions.add(new Permission("Distinction.delete"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.edit"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.list"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.view"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.add"));
+        permissions.add(new Permission("DisciplineScientifiqueParent.delete"));
+        permissions.add(new Permission("DisciplineScientifique.edit"));
+        permissions.add(new Permission("DisciplineScientifique.list"));
+        permissions.add(new Permission("DisciplineScientifique.view"));
+        permissions.add(new Permission("DisciplineScientifique.add"));
+        permissions.add(new Permission("DisciplineScientifique.delete"));
+        permissions.add(new Permission("DistinctionDisciplineScientifique.edit"));
+        permissions.add(new Permission("DistinctionDisciplineScientifique.list"));
+        permissions.add(new Permission("DistinctionDisciplineScientifique.view"));
 
+    }*/
 
     }

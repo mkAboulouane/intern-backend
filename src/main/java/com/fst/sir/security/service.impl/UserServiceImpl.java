@@ -2,6 +2,7 @@ package com.fst.sir.security.service.impl;
 
 import com.fst.sir.security.bean.Role;
 import com.fst.sir.security.bean.User;
+import com.fst.sir.security.common.AuthoritiesConstants;
 import com.fst.sir.security.dao.UserDao;
 import com.fst.sir.security.service.facade.RoleService;
 import com.fst.sir.security.service.facade.UserService;
@@ -88,6 +89,12 @@ public class UserServiceImpl implements UserService {
             user.setPasswordChanged(false);
             user.setCreatedAt(new Date());
 
+            /*  pour un normal utilisateur on lui a donne le role Client  */
+
+            Role roleForAdmin = new Role();
+            roleForAdmin.setAuthority(AuthoritiesConstants.CLIENT);
+            user.getRoles().add(roleForAdmin);
+
             if (user.getRoles() != null) {
                 Collection<Role> roles = new ArrayList<Role>();
                 for (Role role : user.getRoles()) {
@@ -95,12 +102,10 @@ public class UserServiceImpl implements UserService {
                 }
                 user.setRoles(roles);
             }
+
+
             User mySaved = userDao.save(user);
-//            for (Role role : user.getRoles()) {
-//                if (role.getAuthority().equals("ROLE_CHERCHEUR")) {
-//                    chercheurAdminService.save(transformToChercheur(user));
-//                }
-//            }
+
             return mySaved;
         }
     }
