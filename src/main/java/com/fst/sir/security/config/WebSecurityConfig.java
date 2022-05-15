@@ -27,16 +27,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/").permitAll();
+//        http.authorizeRequests().antMatchers("/").permitAll();
 
-/*
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/regsiter").permitAll();
+/*
         http.authorizeRequests().antMatchers("/formations").permitAll();
         http.authorizeRequests().antMatchers("/congres-seminaires").permitAll();
         http.authorizeRequests().antMatchers("/materiel-biomedical").permitAll();
         http.authorizeRequests().antMatchers("/study-abroad").permitAll();
-        http.authorizeRequests().antMatchers("/contact").permitAll();*/
+        http.authorizeRequests().antMatchers("/contact").permitAll();
+*/
 
 //        http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
         http.authorizeRequests().antMatchers("/admin/").permitAll();
