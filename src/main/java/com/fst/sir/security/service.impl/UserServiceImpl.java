@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     PasswordEncoder bCryptPasswordEncoder;
 
     @Override
+    public User findByPhone(String phone) {
+        return userDao.findByPhone(phone);
+    }
+
+    @Override
     public List<User> findAll() {
         return userDao.findAll();
     }
@@ -72,13 +77,10 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         User foundedUserByUsername = findByUsername(user.getUsername());
         User foundedUserByEmail = userDao.findByEmail(user.getEmail());
-        if (foundedUserByUsername != null || foundedUserByEmail != null) return null;
+        User foundedUserByPhone = userDao.findByPhone(user.getPhone());
+        if (foundedUserByUsername != null || foundedUserByEmail != null || foundedUserByPhone != null) return null;
         else {
-            if (user.getPassword() == null || user.getPassword().isEmpty()) {
-                user.setPassword(bCryptPasswordEncoder.encode(user.getUsername()));
-            } else {
-                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            }
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setAccountNonExpired(true);
             user.setAccountNonLocked(true);
             user.setCredentialsNonExpired(true);

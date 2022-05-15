@@ -20,9 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-prePostEnabled = true,
-securedEnabled = true,
-jsr250Enabled = true)
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
@@ -41,29 +42,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers("/actuator/health").permitAll();
-        http.authorizeRequests().antMatchers("/actuator/info").permitAll();
+        http.authorizeRequests().antMatchers("/register").permitAll();
 
-            http.authorizeRequests().antMatchers("/api/admin/login").permitAll();
-            http.authorizeRequests().antMatchers("/api/chercheur/login").permitAll();
-            http.authorizeRequests().antMatchers("/api/admin/").hasAnyAuthority(AuthoritiesConstants.ADMIN);
-            http.authorizeRequests().antMatchers("/api/chercheur/").hasAnyAuthority(AuthoritiesConstants.CHERCHEUR);
 
-        // http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers("/api/admin/login").permitAll();
+        http.authorizeRequests().antMatchers("/api/chercheur/login").permitAll();
+        http.authorizeRequests().antMatchers("/admin/").hasAnyAuthority(AuthoritiesConstants.ADMIN);
+        http.authorizeRequests().antMatchers("/agent/").hasAnyAuthority(AuthoritiesConstants.AGENT);
 
-        /* http.authorizeRequests().anyRequest()
-        .authenticated()
-        .and()
-        .httpBasic();*/
-
-        // http.formLogin();
-        // http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
         http.addFilterBefore(new JWTAuthorizationFiler(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
-    public PasswordEncoder encoder(){
+    public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 

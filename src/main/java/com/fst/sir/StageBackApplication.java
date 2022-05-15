@@ -35,10 +35,10 @@ public class StageBackApplication {
     CommandLineRunner start(UserService userService, RoleService roleService) {
         return args -> {
 
-            if (true) {
+            if (false) {
 
                 // Role admin
-                User userForAdmin = new User("admin");
+                User userForAdmin = new User("khalil");
 
                 Role roleForAdmin = new Role();
                 roleForAdmin.setAuthority(AuthoritiesConstants.ADMIN);
@@ -150,16 +150,4 @@ public class StageBackApplication {
 
 
 
-
     }
-
-         /*   if (false) {
-                User user = new User("khalil");
-                Role roleForAdmin = new Role();
-                roleForAdmin.setAuthority(AuthoritiesConstants.ADMIN);
-                if (user.getRoles() == null)
-                    user.setRoles(new ArrayList<>());
-
-                user.getRoles().add(roleForAdmin);
-                userService.save(user);
-            }*/
