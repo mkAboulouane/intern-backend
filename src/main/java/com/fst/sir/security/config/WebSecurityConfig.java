@@ -3,8 +3,11 @@ package com.fst.sir.security.config;
 import com.fst.sir.security.common.AuthoritiesConstants;
 import com.fst.sir.security.jwt.JWTAuthenticationFilter;
 import com.fst.sir.security.jwt.JWTAuthorizationFiler;
+import com.fst.sir.security.service.facade.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,39 +20,50 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        prePostEnabled = true,
-        securedEnabled = true,
-        jsr250Enabled = true)
+prePostEnabled = true,
+securedEnabled = true,
+jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
+    }
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.authorizeRequests().antMatchers("/").permitAll();
-
         http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers("/regsiter").permitAll();
-/*
-        http.authorizeRequests().antMatchers("/formations").permitAll();
-        http.authorizeRequests().antMatchers("/congres-seminaires").permitAll();
-        http.authorizeRequests().antMatchers("/materiel-biomedical").permitAll();
-        http.authorizeRequests().antMatchers("/study-abroad").permitAll();
-        http.authorizeRequests().antMatchers("/contact").permitAll();
-*/
+        http.authorizeRequests().antMatchers("/actuator/health").permitAll();
+        http.authorizeRequests().antMatchers("/actuator/info").permitAll();
 
-//        http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
-        http.authorizeRequests().antMatchers("/admin/").permitAll();
-        http.authorizeRequests().antMatchers("/gerant/**").hasAnyAuthority(AuthoritiesConstants.GERANT);
-        http.authorizeRequests().antMatchers("/app/**").hasAnyAuthority(AuthoritiesConstants.CLIENT);
+            http.authorizeRequests().antMatchers("/api/admin/login").permitAll();
+            http.authorizeRequests().antMatchers("/api/chercheur/login").permitAll();
+            http.authorizeRequests().antMatchers("/api/admin/").hasAnyAuthority(AuthoritiesConstants.ADMIN);
+            http.authorizeRequests().antMatchers("/api/chercheur/").hasAnyAuthority(AuthoritiesConstants.CHERCHEUR);
 
+        // http.authorizeRequests().anyRequest().authenticated();
+
+        /* http.authorizeRequests().anyRequest()
+        .authenticated()
+        .and()
+        .httpBasic();*/
+
+        // http.formLogin();
+        // http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
         http.addFilterBefore(new JWTAuthorizationFiler(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
-    public PasswordEncoder encoder() {
+    public PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
 

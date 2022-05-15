@@ -7,22 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user_app")
 public class Permission {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
 
     @ManyToMany(mappedBy = "permissions")
     @JsonIgnore
     List<Role> roles = new ArrayList<>();
 
-    public Permission() {
-        super();
-    }
+    public Permission(){ super(); }
 
-    public Permission(String name) {
+    public Permission(String name){
         super();
         this.name = name;
     }
@@ -50,5 +47,4 @@ public class Permission {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
 }

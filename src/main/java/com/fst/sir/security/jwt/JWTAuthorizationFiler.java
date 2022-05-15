@@ -21,15 +21,16 @@ import java.util.Collection;
 import java.util.List;
 
 public class JWTAuthorizationFiler extends OncePerRequestFilter {
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    FilterChain filterChain) throws ServletException, IOException {
         response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
         response.addHeader("Access-Control-Allow-Headers",
-                "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,Authorization");
+        "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,Authorization");
         response.addHeader("Access-Control-Allow-Methods", "DELETE, POST, GET, PUT, PATCH, OPTIONS");
         response.addHeader("Access-Control-Expose-Headers",
-                "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
+        "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
 
         if (request.getMethod().equals("OPTIONS")) {
             response.setStatus(HttpServletResponse.SC_OK);
@@ -61,6 +62,5 @@ public class JWTAuthorizationFiler extends OncePerRequestFilter {
         }
 
     }
-
 
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping("/admin/roles")
+@RequestMapping("/api/roles")
 @RestController
 // @PreAuthorize("hasRole(AuthoritiesConstants.super_admin)")
 public class RoleRest {
@@ -18,7 +18,7 @@ public class RoleRest {
 
     // @PreAuthorize("hasRole(AuthoritiesConstants.super_admin)")
     @GetMapping("/")
-    public List<Role> findAll() {
+    public List<Role> findAll(){
         return this.roleService.findAll();
     }
 }

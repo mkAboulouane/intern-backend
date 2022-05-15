@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl  implements RoleService {
 
     @Autowired
     private RoleDao roleDao;
@@ -42,7 +43,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findById(Long id) {
         if (id == null)
-            return null;
+        return null;
         return roleDao.getOne(id);
     }
 
@@ -53,8 +54,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> create(List<Role> roles) {
-        List<Role> resultat = new ArrayList<>();
-        roles.forEach(r -> resultat.add(save(r)));
+        List<Role>  resultat = new ArrayList<>();
+        roles.forEach(r->resultat.add(save(r)));
         return resultat;
     }
 
@@ -76,21 +77,10 @@ public class RoleServiceImpl implements RoleService {
         return 1;
     }
 
-    //    @Override
-//    public Role save(Role role) {
-//        Role r = findByAuthority(role.getAuthority());
-//        if (r != null) return r;
-//        List<Permission> perms = new ArrayList<>();
-//        role.getPermissions().forEach(perm -> {
-//            perms.add(permissionService.save(perm));
-//        });
-//        role.setPermissions(perms);
-//        return roleDao.save(role);
-//    }
     @Override
     public Role save(Role role) {
-        Role r = findByAuthority(role.getAuthority());
-        if (r != null) return r;
+        Role r =  findByAuthority(role.getAuthority());
+        if(r != null) return r;
         List<Permission> perms = new ArrayList<>();
         role.getPermissions().forEach(perm -> {
             perms.add(permissionService.save(perm));
@@ -101,7 +91,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> findByUserName(String username) {
-        if (username == null) return null;
+        if(username == null) return null;
         return roleDao.findAllByUsersUsername(username);
     }
 

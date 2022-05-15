@@ -1,11 +1,12 @@
+
 package com.fst.sir.security.service.facade;
 
 import com.fst.sir.security.bean.Role;
 
 import java.util.List;
 
-public interface RoleService {
 
+public interface RoleService {
     List<Role> findAll();
 
     Role findByAuthority(String authority);
@@ -25,5 +26,4 @@ public interface RoleService {
     int deleteByAuthority(String authority);
 
     List<Role> findByUserName(String username);
-
 }

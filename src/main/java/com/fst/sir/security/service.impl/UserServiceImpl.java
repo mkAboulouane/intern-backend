@@ -21,12 +21,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 
-    @Autowired
-    PasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     private UserDao userDao;
+
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    PasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public List<User> findAll() {
@@ -34,35 +37,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) {
-        if (email == null) {
-            return null;
-        }else
-            return userDao.findByPhone(email);
-
-    }
-
-    @Override
-    public User findByPhone(String phone) {
-        if (phone == null) {
-            return null;
-        }
-       else return userDao.findByPhone(phone);
-    }
-
-    @Override
     public User findByUsername(String username) {
         if (username == null)
-            return null;
+        return null;
         return userDao.findByUsername(username);
     }
-
-
 
     @Override
     public User findByUsernameWithRoles(String username) {
         if (username == null)
-            return null;
+        return null;
         return userDao.findByUsername(username);
     }
 
@@ -75,7 +59,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         if (id == null)
-            return null;
+        return null;
         return userDao.getOne(id);
     }
 
@@ -87,20 +71,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         User foundedUserByUsername = findByUsername(user.getUsername());
-        User foundedUserByEmail = findByEmail(user.getEmail());
-        User foundedUserByPhone = findByPhone(user.getPhone());
-
-        if (foundedUserByUsername != null || foundedUserByEmail != null || foundedUserByPhone != null) {
-            return null;
-        }
+        User foundedUserByEmail = userDao.findByEmail(user.getEmail());
+        if (foundedUserByUsername != null || foundedUserByEmail != null) return null;
         else {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                user.setPassword(bCryptPasswordEncoder.encode(user.getUsername()));
+            } else {
+                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            }
             user.setAccountNonExpired(true);
             user.setAccountNonLocked(true);
             user.setCredentialsNonExpired(true);
             user.setEnabled(true);
             user.setPasswordChanged(false);
-            user.setAccountNonExpired(true);
             user.setCreatedAt(new Date());
 
             if (user.getRoles() != null) {
@@ -110,11 +93,32 @@ public class UserServiceImpl implements UserService {
                 }
                 user.setRoles(roles);
             }
-
-            return userDao.save(user);
+            User mySaved = userDao.save(user);
+//            for (Role role : user.getRoles()) {
+//                if (role.getAuthority().equals("ROLE_CHERCHEUR")) {
+//                    chercheurAdminService.save(transformToChercheur(user));
+//                }
+//            }
+            return mySaved;
         }
     }
 
+//            private Chercheur transformToChercheur(User user) {
+//            Chercheur chercheur = new Chercheur();
+//            chercheur.setUsername(user.getUsername() + "-CH");
+//            chercheur.setPassword(user.getPassword());
+//            chercheur.setEmail(user.getEmail());
+//            chercheur.setPrenom(user.getPrenom());
+//            chercheur.setNom(user.getNom());
+//            chercheur.getRoles().addAll(user.getRoles());
+//            chercheur.setAccountNonExpired(true);
+//            chercheur.setAccountNonLocked(true);
+//            chercheur.setCredentialsNonExpired(true);
+//            chercheur.setEnabled(true);
+//            chercheur.setPasswordChanged(false);
+//            chercheur.setCreatedAt(new Date());
+//            return chercheur;
+//            }
 
     @Override
     public User update(User user) {
@@ -126,14 +130,13 @@ public class UserServiceImpl implements UserService {
             foundedUser.setPrenom(user.getPrenom());
             foundedUser.setNom(user.getNom());
             foundedUser.setEnabled(user.isEnabled());
-            foundedUser.setUpdatedAt(new Date());
             foundedUser.setCredentialsNonExpired(user.isCredentialsNonExpired());
             foundedUser.setAccountNonLocked(user.isAccountNonLocked());
             foundedUser.setAccountNonExpired(user.isAccountNonExpired());
             foundedUser.setAuthorities(new ArrayList<>());
             Collection<Role> roles = new ArrayList<Role>();
             for (Role role : user.getRoles()) {
-                roles.add(roleService.save(role));
+            	roles.add(roleService.save(role));
             }
             foundedUser.setRoles(roles);
             return userDao.save(foundedUser);
@@ -153,7 +156,4 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return findByUsernameWithRoles(username);
     }
-
-
-
 }
