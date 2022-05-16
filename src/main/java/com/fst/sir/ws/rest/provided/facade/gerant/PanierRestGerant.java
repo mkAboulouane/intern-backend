@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("admin/paiment")
+@RequestMapping("gerant/paiment")
 public class PanierRestGerant {
     @Autowired
     private PanierAdminService panierAdminService;

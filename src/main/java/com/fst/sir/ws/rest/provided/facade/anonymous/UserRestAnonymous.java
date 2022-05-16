@@ -22,12 +22,4 @@ public class UserRestAnonymous {
         return userService.save(user);
     }
 
-    @GetMapping("/username/{username}")
-    public List<String> getUserRole(@PathVariable String username) {
-        User user = userService.findByUsername(username);
-        List<String> list = new ArrayList<>();
-        user.getRoles().forEach(e -> list.add(e.getAuthority()));
-        return list;
-    }
-
 }

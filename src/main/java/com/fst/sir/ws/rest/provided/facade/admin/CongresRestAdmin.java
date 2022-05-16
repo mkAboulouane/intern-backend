@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/congres")
+@RequestMapping("admin/congres")
 public class CongresRestAdmin {
 
     @GetMapping("/{nom}")

@@ -8,12 +8,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/admin")
+@RequestMapping("admin")
 @RestController
 // @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
 public class UserRest {
     @Autowired
     private UserService userService;
+
+
+    /*   get User Role   */
+    @GetMapping("/role/username/{username}")
+    public String getUserRole(@PathVariable String username) {
+        return userService.getUserRole(username);
+    }
 
     @GetMapping("/")
     public List<User> findAll(){

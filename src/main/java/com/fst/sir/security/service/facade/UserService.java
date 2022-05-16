@@ -3,10 +3,13 @@ package com.fst.sir.security.service.facade;
 import com.fst.sir.security.bean.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
+
+    String getUserRole(String username);
 
     List<User> findAll();
 
