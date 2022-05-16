@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/users")
+@RequestMapping("/api/admin")
 @RestController
 // @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
 public class UserRest {
@@ -21,11 +21,6 @@ public class UserRest {
     }
 
 
-    /* Client */
-    @PostMapping(path = "register/")
-    public User saveClient(@RequestBody User user) {
-        return userService.save(user);
-    }
 
     /* Admin */
     @PostMapping("/save")
