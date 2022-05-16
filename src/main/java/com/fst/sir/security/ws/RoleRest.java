@@ -21,4 +21,5 @@ public class RoleRest {
     public List<Role> findAll(){
         return this.roleService.findAll();
     }
+
 }
