@@ -35,26 +35,17 @@ public class StageBackApplication {
     CommandLineRunner start(UserService userService) {
         return args -> {
 
-            if (false) {
+            if (true) {
 
                 // Role admin
-                User userForClient = new User("adam","asdd","asdasd","06327813");
+                User user = new User("admin@gmail.com","admin","admin","admin");
+                userService.saveAdmin(user);
 
-                Role roleForGerant = new Role();
-                roleForGerant.setAuthority(AuthoritiesConstants.AGENT);
-                List<Permission> permissionsForClient = new ArrayList<>();
-                addPermissionForGerant(permissionsForClient);
-                roleForGerant.setPermissions(permissionsForClient);
-                if (userForClient.getRoles() == null)
-                    userForClient.setRoles(new ArrayList<>());
-
-                userForClient.getRoles().add(roleForGerant);
-                userService.save(userForClient);
             }
         };
     }
 
-    private static void addPermissionForGerant(List<Permission> permissions) {
+/*    private static void addPermissionForGerant(List<Permission> permissions) {
         permissions.add(new Permission("DisciplineScientifiqueChercheur.edit"));
         permissions.add(new Permission("DisciplineScientifiqueChercheur.list"));
         permissions.add(new Permission("DisciplineScientifiqueChercheur.view"));
@@ -95,7 +86,7 @@ public class StageBackApplication {
         permissions.add(new Permission("IdentifiantAuteurExpert.view"));
         permissions.add(new Permission("IdentifiantAuteurExpert.add"));
         permissions.add(new Permission("IdentifiantAuteurExpert.delete"));
-    }
+    }*/
 
 
 /*    private static void addPermissionForAdmin(List<Permission> permissions){
