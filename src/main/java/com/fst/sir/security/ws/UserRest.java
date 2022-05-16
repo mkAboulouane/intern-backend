@@ -20,6 +20,25 @@ public class UserRest {
         return this.userService.findAll();
     }
 
+
+    /* Client */
+    @PostMapping(path = "register/")
+    public User saveClient(@RequestBody User user) {
+        return userService.save(user);
+    }
+
+    /* Admin */
+    @PostMapping("/save")
+    public User saveAdmin(@RequestBody User user) {
+        return userService.saveAdmin(user);
+    }
+
+    /* Agent */
+    @PostMapping("/agent/add/")
+    public User saveAgent(@RequestBody User user) {
+        return userService.saveAGENT(user);
+    }
+
     public User findByUsername(String username) {
         return userService.findByUsername(username);
     }
@@ -34,10 +53,7 @@ public class UserRest {
         userService.deleteById(id);
     }
 
-    @PostMapping("/save")
-    public User save(@RequestBody User user) {
-        return userService.save(user);
-    }
+
 
     @PutMapping("/")
     public User update(@RequestBody User user) {
