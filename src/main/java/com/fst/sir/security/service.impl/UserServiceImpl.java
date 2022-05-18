@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,14 +31,13 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     PasswordEncoder bCryptPasswordEncoder;
-
-
     @Override
     public String getUserRole(String username) {
         User user = findByUsername(username);
         List<String> list = new ArrayList<>();
         user.getRoles().forEach(e -> list.add(e.getAuthority()));
-        return list.get(0);
+        String result = list.get(0);
+        return result;
     }
 
     /*  pour un AGENT */

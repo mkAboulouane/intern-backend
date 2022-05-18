@@ -15,13 +15,6 @@ public class UserRest {
     @Autowired
     private UserService userService;
 
-
-    /*   get User Role   */
-    @GetMapping("/role/username/{username}")
-    public String getUserRole(@PathVariable String username) {
-        return userService.getUserRole(username);
-    }
-
     @GetMapping("/")
     public List<User> findAll(){
         return this.userService.findAll();

@@ -1,10 +1,6 @@
 package com.fst.sir;
 
-import com.fst.sir.security.bean.Permission;
-import com.fst.sir.security.bean.Role;
 import com.fst.sir.security.bean.User;
-import com.fst.sir.security.common.AuthoritiesConstants;
-import com.fst.sir.security.service.facade.RoleService;
 import com.fst.sir.security.service.facade.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,10 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @SpringBootApplication
 @EnableSwagger2
@@ -35,7 +27,7 @@ public class StageBackApplication {
     CommandLineRunner start(UserService userService) {
         return args -> {
 
-            if (true) {
+            if (false) {
 
                 // Role admin
                 User user = new User("admin@gmail.com","admin","admin","admin");

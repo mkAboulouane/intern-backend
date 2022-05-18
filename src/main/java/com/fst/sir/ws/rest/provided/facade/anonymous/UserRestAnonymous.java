@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 @RestController
@@ -20,6 +18,12 @@ public class UserRestAnonymous {
     @PostMapping("/")
     public User save(@RequestBody User user) {
         return userService.save(user);
+    }
+
+    /*   get User Role   */
+    @GetMapping("/role/username/{username}")
+    public String getUserRole(@PathVariable String username) {
+        return userService.getUserRole(username);
     }
 
 }

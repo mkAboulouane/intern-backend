@@ -29,8 +29,6 @@ public class User implements UserDetails {
     protected boolean accountNonLocked;
     protected String username;
     protected String password;
-
-
     protected String phone;
     protected String prenom;
     protected String nom;
