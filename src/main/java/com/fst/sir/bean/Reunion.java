@@ -22,7 +22,8 @@ public class Reunion {
     private Long id;
     private String nom;
     private String encadrantProf;
-    @Lob
+
+
     private String description;
     private String duree;
     private boolean visible;
@@ -37,16 +38,4 @@ public class Reunion {
     private Date updatedAt;
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Reunion reunion = (Reunion) o;
-        return id != null && Objects.equals(id, reunion.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

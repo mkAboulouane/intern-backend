@@ -31,7 +31,6 @@ public class ProduitBio
 
     private int quantity;
 
-    @Lob
     private String description;
     private String photos;
     private double prix;

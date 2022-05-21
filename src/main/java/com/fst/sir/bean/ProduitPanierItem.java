@@ -8,15 +8,13 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@AllArgsConstructor
+@Getter @Setter
+@RequiredArgsConstructor @AllArgsConstructor
 public class ProduitPanierItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Double prix;
 
     @OneToOne

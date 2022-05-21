@@ -16,15 +16,19 @@ public class FormationAdminServiceImpl implements FormationAdminService {
 
     @Autowired
     private FormationDao formationDao;
+
     @Override
     public Formation save(Formation formation) {
         Formation entity = findByNom(formation.getNom());
-        if (entity == null) {
+        if (entity != null) {
+            return null;
+        }
+        else {
             formation.setAddedAt(new Date());
             return formationDao.save(formation);
         }
-        return null;
     }
+
 
     @Override
     public List<Formation> findAll() {
@@ -57,4 +61,6 @@ public class FormationAdminServiceImpl implements FormationAdminService {
     public List<Formation> findByEncadrantProf(String encadrant) {
         return formationDao.findByEncadrantProf(encadrant);
     }
+
+
 }

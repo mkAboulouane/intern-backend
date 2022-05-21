@@ -21,9 +21,11 @@ public interface UserService extends UserDetailsService {
 
     void deleteById(Long id);
 
-
     /*  Client  */
     User save(User user);
+
+
+//    User savePure(User user);
 
     /*  Admin  */
     User saveAdmin(User user);

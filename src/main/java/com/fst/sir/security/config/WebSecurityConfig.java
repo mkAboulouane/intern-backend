@@ -25,6 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
     @Autowired
     private UserService userService;
 
@@ -44,9 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/register").permitAll();
 
-        http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
-        http.authorizeRequests().antMatchers("/gerant/**").hasAnyAuthority(AuthoritiesConstants.AGENT);
-        http.authorizeRequests().antMatchers("/app/**").hasAnyAuthority(AuthoritiesConstants.CLIENT);
+        http.authorizeRequests().antMatchers("/admin/formation/").hasAnyAuthority(AuthoritiesConstants.ADMIN);
+//        http.authorizeRequests().antMatchers("/admin/").permitAll();
+        http.authorizeRequests().antMatchers("/gerant/").hasAnyAuthority(AuthoritiesConstants.AGENT);
+        http.authorizeRequests().antMatchers("/app/").hasAnyAuthority(AuthoritiesConstants.CLIENT);
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
         http.addFilterBefore(new JWTAuthorizationFiler(), UsernamePasswordAuthenticationFilter.class);
