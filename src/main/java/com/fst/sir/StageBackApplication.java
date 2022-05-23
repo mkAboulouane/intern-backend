@@ -1,9 +1,7 @@
 package com.fst.sir;
 
 import com.fst.sir.security.bean.Permission;
-import com.fst.sir.security.bean.Role;
 import com.fst.sir.security.bean.User;
-import com.fst.sir.security.common.AuthoritiesConstants;
 import com.fst.sir.security.service.facade.RoleService;
 import com.fst.sir.security.service.facade.UserService;
 import org.springframework.boot.CommandLineRunner;
