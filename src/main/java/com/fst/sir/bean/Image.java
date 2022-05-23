@@ -10,7 +10,8 @@ public class Image {
     private Long id;
     private String name;
     private String type;
-    @Column(unique = false, nullable = false, length = 100000)
+
+    @Lob
     private byte[] image;
 
     public Image() {

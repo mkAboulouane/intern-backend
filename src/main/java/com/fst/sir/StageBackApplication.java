@@ -34,10 +34,12 @@ public class StageBackApplication {
     CommandLineRunner start(UserService userService, RoleService roleService) {
         return args -> {
 
-            if (true) {
+            if (false) {
 
-                User userForAdmin = new User("admin","admin","admin","admin");
-                userService.saveAdmin(userForAdmin);
+//                 final String str = "admin";
+
+//                User userForAdmin = new User(str,str,str,str);
+//                userService.saveAdmin(userForAdmin);
 
 //                Role roleForAdmin = new Role();
 //                roleForAdmin.setAuthority(AuthoritiesConstants.ADMIN);
@@ -67,23 +69,23 @@ public class StageBackApplication {
 //                roleService.save(roleForClient);
 
 
-//                User userAdmin = new User("admin","admin","admin","admin");
+                User userAdmin = new User("admin","admin","admin","admin");
 //                if(userAdmin.getRoles()==null)
 //                    userAdmin.setRoles(new ArrayList<>());
 //                userAdmin.getRoles().add(roleForAdmin);
-//                userService.saveAdmin(userAdmin);
+                userService.saveAdmin(userAdmin);
 //
-//                 User userGerant = new User("gerant","gerant","gerant","gerant");
+                 User userGerant = new User("gerant","gerant","gerant","gerant");
 //                if(userGerant.getRoles()==null)
 //                    userGerant.setRoles(new ArrayList<>());
 //                userGerant.getRoles().add(roleForGerant);
-//                userService.saveAGENT(userGerant);
+                userService.saveAGENT(userGerant);
 //
-//                 User userClient = new User("client","client","client","client");
+                 User userClient = new User("client","client","client","client");
 //                if(userClient.getRoles()==null)
 //                    userClient.setRoles(new ArrayList<>());
 //                userClient.getRoles().add(roleForClient);
-//                userService.save(userClient);
+                userService.save(userClient);
                 
                 
 

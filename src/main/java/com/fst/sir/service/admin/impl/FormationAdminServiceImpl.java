@@ -54,7 +54,7 @@ public class FormationAdminServiceImpl implements FormationAdminService {
 
     @Override
     public int deleteByNom(String nom) {
-        return 0;
+        return formationDao.deleteByNom(nom);
     }
 
     @Override

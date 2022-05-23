@@ -36,7 +36,8 @@ public class FormationRestAdmin {
         return formationAdminService.findByNom(nom);
     }
 
-    public int deleteByNom(String nom) {
+    @DeleteMapping("/{nom}")
+    public int deleteByNom(@PathVariable String nom) {
         return formationAdminService.deleteByNom(nom);
     }
 

@@ -1,7 +1,6 @@
 package com.fst.sir.dao;
 
 import com.fst.sir.bean.Formation;
-import com.fst.sir.bean.ProduitBio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,6 +16,9 @@ public interface FormationDao extends JpaRepository<Formation,Long> {
 
     int deleteByNom(String nom);
 
+    void deleteById(Long id);
     List<Formation> findByEncadrantProf(String encadrant);
+
+
 
 }
