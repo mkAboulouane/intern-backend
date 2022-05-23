@@ -24,7 +24,7 @@ public class ProduitPanierItemServiceImpl implements ProduitPanierItemService {
     public ProduitPanierItem save(ProduitPanierItem produitPanierItem) {
         ProduitBio produitBio = produitBioAdminService.findByNom(produitPanierItem.getProduitBio().getNom());
         Panier panier = panierAdminService.findByReference(produitPanierItem.getPanier().getReference());
-        produitPanierItem.setPrix(produitPanierItem.getPrix()* produitPanierItem.getQuantite());
+        produitPanierItem.setPrix(produitPanierItem.getPrix() * produitPanierItem.getQuantite());
         produitPanierItem.setProduitBio(produitBio);
         produitPanierItem.setPanier(panier);
         return produitPanierItemDao.save(produitPanierItem);

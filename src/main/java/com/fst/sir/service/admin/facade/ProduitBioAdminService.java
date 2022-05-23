@@ -1,6 +1,5 @@
 package com.fst.sir.service.admin.facade;
 
-import com.fst.sir.bean.Formation;
 import com.fst.sir.bean.ProduitBio;
 
 import java.util.List;
@@ -16,7 +15,6 @@ public interface ProduitBioAdminService {
     ProduitBio save(ProduitBio produitBio);
 
     ProduitBio update(ProduitBio produitBio);
-
 
 
 }

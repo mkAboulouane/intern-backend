@@ -1,7 +1,6 @@
 package com.fst.sir.service.core.impl;
 
 
-
 import com.fst.sir.service.util.ListUtil;
 
 import java.util.ArrayList;

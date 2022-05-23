@@ -1,9 +1,8 @@
 package com.fst.sir.bean;
 
 
-import com.fst.sir.enums.TypePaiment;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fst.sir.security.bean.User;
+import com.fst.sir.enums.TypePaiment;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -33,7 +32,6 @@ public class Paiment {
 
     @Enumerated(EnumType.STRING)
     private TypePaiment typePaiment;
-
 
 
     @Override

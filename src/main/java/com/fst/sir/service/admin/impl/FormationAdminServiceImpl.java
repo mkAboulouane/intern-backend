@@ -22,8 +22,7 @@ public class FormationAdminServiceImpl implements FormationAdminService {
         Formation entity = findByNom(formation.getNom());
         if (entity != null) {
             return null;
-        }
-        else {
+        } else {
             formation.setAddedAt(new Date());
             return formationDao.save(formation);
         }
@@ -43,8 +42,7 @@ public class FormationAdminServiceImpl implements FormationAdminService {
             formation.setAddedAt(formation1.getAddedAt());
             formation.setId(formation1.getId());
             return formationDao.save(formation);
-        }
-       else  return null;
+        } else return null;
     }
 
     @Override

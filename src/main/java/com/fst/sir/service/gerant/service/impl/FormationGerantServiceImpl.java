@@ -11,6 +11,7 @@ import java.util.List;
 public class FormationGerantServiceImpl implements FormationGerantService {
     @Autowired
     private FormationDao formationDao;
+
     @Override
     public Formation save(Formation formation) {
         Formation entity = findByNom(formation.getNom());
@@ -34,8 +35,7 @@ public class FormationGerantServiceImpl implements FormationGerantService {
             formation.setAddedAt(formation1.getAddedAt());
             formation.setId(formation1.getId());
             return formationDao.save(formation);
-        }
-        else  return null;
+        } else return null;
     }
 
     @Override

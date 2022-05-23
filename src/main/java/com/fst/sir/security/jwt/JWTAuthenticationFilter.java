@@ -37,7 +37,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             User myUser = new ObjectMapper().readValue(request.getInputStream(), User.class);
             System.out.println(myUser.getUsername());
             System.out.println(myUser.getPassword());
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(myUser.getUsername(),myUser.getPassword()));
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(myUser.getUsername(), myUser.getPassword()));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -55,23 +55,23 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         Collection<String> roles = new ArrayList<>();
         if (myUser.getAuthorities() != null) {
-            myUser.getAuthorities().forEach(a->roles.add(a.getAuthority()));
+            myUser.getAuthorities().forEach(a -> roles.add(a.getAuthority()));
         }
         Boolean passwordChanged = myUser.isPasswordChanged();
         if (passwordChanged == null) {
-            passwordChanged=Boolean.FALSE;
+            passwordChanged = Boolean.FALSE;
         }
 
-        String jwt= JWT.create()
+        String jwt = JWT.create()
                 .withIssuer(request.getRequestURI())
                 .withSubject(user.getUsername())
                 .withSubject(user.getPrenom())
                 .withSubject(user.getNom())
-                .withArrayClaim("roles",roles.toArray(new String[roles.size()]))
-                .withExpiresAt(new Date(System.currentTimeMillis()+ SecurityParams.EXPIRATION))
-                .withClaim("passwordChanged",passwordChanged)
+                .withArrayClaim("roles", roles.toArray(new String[roles.size()]))
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityParams.EXPIRATION))
+                .withClaim("passwordChanged", passwordChanged)
                 .sign(Algorithm.HMAC256(SecurityParams.SECRET));
-        response.addHeader(SecurityParams.JWT_HEADER_NAME,SecurityParams.HEADER_PREFIX+jwt);
+        response.addHeader(SecurityParams.JWT_HEADER_NAME, SecurityParams.HEADER_PREFIX + jwt);
         System.out.println(jwt);
     }
 

@@ -11,11 +11,12 @@ public interface CongresAdminService {
     int deleteByNom(String nom);
 
     List<Congres> findByEncadrantProf(String encadrant);
+
     List<Congres> findAll();
 
     Congres save(Congres congres);
 
     Congres update(Congres congres);
 
-    
+
 }

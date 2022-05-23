@@ -17,9 +17,11 @@ public class Permission {
     @JsonIgnore
     List<Role> roles = new ArrayList<>();
 
-    public Permission(){ super(); }
+    public Permission() {
+        super();
+    }
 
-    public Permission(String name){
+    public Permission(String name) {
         super();
         this.name = name;
     }

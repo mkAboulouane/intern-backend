@@ -18,7 +18,7 @@ public class RoleRest {
 
     // @PreAuthorize("hasRole(AuthoritiesConstants.super_admin)")
     @GetMapping("/")
-    public List<Role> findAll(){
+    public List<Role> findAll() {
         return this.roleService.findAll();
     }
 

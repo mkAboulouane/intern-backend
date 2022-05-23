@@ -1,7 +1,6 @@
 package com.fst.sir.service.admin.impl;
 
 import com.fst.sir.bean.Congres;
-import com.fst.sir.bean.Formation;
 import com.fst.sir.dao.CongresDao;
 import com.fst.sir.service.admin.facade.CongresAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ public class CongresAdminServiceImpl implements CongresAdminService {
 
     @Autowired
     private CongresDao congresDao;
+
     @Override
     public Congres findByNom(String nom) {
         return congresDao.findByNom(nom);
@@ -55,7 +55,6 @@ public class CongresAdminServiceImpl implements CongresAdminService {
             congres.setAddedAt(entity.getAddedAt());
             congres.setUpdatedAt(new Date());
             return congresDao.save(congres);
-        }
-        else  return null;
+        } else return null;
     }
 }

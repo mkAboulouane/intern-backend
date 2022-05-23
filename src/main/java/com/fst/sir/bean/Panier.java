@@ -3,7 +3,11 @@ package com.fst.sir.bean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fst.sir.enums.EtatCommande;
 import com.fst.sir.security.bean.User;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;

@@ -45,13 +45,11 @@ public class PiamentGerantServiceImpl implements PiamentGerantService {
     @Override
     public Paiment save(Paiment paiment) {
         Panier panier = panierAdminService.findByReference(paiment.getReference());
-        if(paiment.getPrix() == panier.getPrixTotal())
-        {
+        if (paiment.getPrix() == panier.getPrixTotal()) {
             paiment.setPayedAt(new Date());
             paiment.setPrix(panier.getPrixTotal());
             return paimentDao.save(paiment);
-        }
-        else return null;
+        } else return null;
     }
 
 

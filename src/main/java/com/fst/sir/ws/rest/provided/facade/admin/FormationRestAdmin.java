@@ -2,7 +2,6 @@ package com.fst.sir.ws.rest.provided.facade.admin;
 
 import com.fst.sir.bean.Formation;
 import com.fst.sir.service.admin.facade.FormationAdminService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

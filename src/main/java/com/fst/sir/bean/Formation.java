@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
- @AllArgsConstructor
+@AllArgsConstructor
 public class Formation extends Reunion {
     private double prix;
     private int nombrePlace;

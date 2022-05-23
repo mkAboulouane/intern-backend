@@ -4,10 +4,11 @@ import com.fst.sir.bean.Formation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
-public interface FormationDao extends JpaRepository<Formation,Long> {
+public interface FormationDao extends JpaRepository<Formation, Long> {
 
     @Query("SELECT item FROM Formation item ORDER BY item.id DESC ")
     List<Formation> findAll();
@@ -17,8 +18,8 @@ public interface FormationDao extends JpaRepository<Formation,Long> {
     int deleteByNom(String nom);
 
     void deleteById(Long id);
-    List<Formation> findByEncadrantProf(String encadrant);
 
+    List<Formation> findByEncadrantProf(String encadrant);
 
 
 }

@@ -22,7 +22,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 
-
     @Autowired
     private UserDao userDao;
 
@@ -104,7 +103,8 @@ public class UserServiceImpl implements UserService {
             User mySaved = userDao.save(user);
 
             return mySaved;
-        }       }
+        }
+    }
 
     /*  pour un Admin */
     @Override
@@ -141,7 +141,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public User findByPhone(String phone) {
         return userDao.findByPhone(phone);
@@ -155,14 +154,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         if (username == null)
-        return null;
+            return null;
         return userDao.findByUsername(username);
     }
 
     @Override
     public User findByUsernameWithRoles(String username) {
         if (username == null)
-        return null;
+            return null;
         return userDao.findByUsername(username);
     }
 
@@ -175,7 +174,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         if (id == null)
-        return null;
+            return null;
         return userDao.getOne(id);
     }
 
@@ -253,7 +252,7 @@ public class UserServiceImpl implements UserService {
             foundedUser.setAuthorities(new ArrayList<>());
             Collection<Role> roles = new ArrayList<Role>();
             for (Role role : user.getRoles()) {
-            	roles.add(roleService.save(role));
+                roles.add(roleService.save(role));
             }
             foundedUser.setRoles(roles);
             return userDao.save(foundedUser);

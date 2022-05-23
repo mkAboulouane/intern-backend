@@ -12,6 +12,7 @@ public class CongresGerantServiceImpl implements CongresGerantService {
 
     @Autowired
     private CongresDao congresDao;
+
     @Override
     public Congres findByNom(String nom) {
         return congresDao.findByNom(nom);
@@ -50,8 +51,7 @@ public class CongresGerantServiceImpl implements CongresGerantService {
             congres.setAddedAt(entity.getAddedAt());
             congres.setUpdatedAt(new Date());
             return congresDao.save(congres);
-        }
-        else  return null;
+        } else return null;
     }
 
 }

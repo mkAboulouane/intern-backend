@@ -14,8 +14,7 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class ProduitBio
-{
+public class ProduitBio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

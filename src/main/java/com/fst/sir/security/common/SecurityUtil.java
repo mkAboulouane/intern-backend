@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class SecurityUtil {
 
     public static User getCurrentUser() {
-        UserService userService= StageBackApplication.getCtx().getBean(UserService.class);
+        UserService userService = StageBackApplication.getCtx().getBean(UserService.class);
 
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Object user = securityContext.getAuthentication().getPrincipal();
@@ -34,19 +34,19 @@ public class SecurityUtil {
     public static boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication != null &&
-        getAuthorities(authentication).noneMatch(AuthoritiesConstants.ANONYMOUS::equals);
+                getAuthorities(authentication).noneMatch(AuthoritiesConstants.ANONYMOUS::equals);
     }
 
 
     public static boolean isCurrentUserInRole(String authority) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication != null &&
-        getAuthorities(authentication).anyMatch(authority::equals);
+                getAuthorities(authentication).anyMatch(authority::equals);
     }
 
     private static Stream<String> getAuthorities(Authentication authentication) {
         return authentication.getAuthorities().stream()
-        .map(GrantedAuthority::getAuthority);
-        }
+                .map(GrantedAuthority::getAuthority);
+    }
 
 }

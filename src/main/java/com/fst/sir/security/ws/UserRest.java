@@ -3,7 +3,6 @@ package com.fst.sir.security.ws;
 import com.fst.sir.security.bean.User;
 import com.fst.sir.security.service.facade.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,10 +15,9 @@ public class UserRest {
     private UserService userService;
 
     @GetMapping("/")
-    public List<User> findAll(){
+    public List<User> findAll() {
         return this.userService.findAll();
     }
-
 
 
     /* Admin */
@@ -47,7 +45,6 @@ public class UserRest {
     public void deleteById(@PathVariable Long id) {
         userService.deleteById(id);
     }
-
 
 
     @PutMapping("/")

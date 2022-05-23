@@ -1,9 +1,9 @@
 package com.fst.sir.service.util;
 
 public class StringUtil {
-    private static Long i=100L;
-    public static Long codeApogesIncrement()
-    {
+    private static Long i = 100L;
+
+    public static Long codeApogesIncrement() {
         return ++i;
     }
 

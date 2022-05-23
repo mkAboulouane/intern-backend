@@ -11,7 +11,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
@@ -67,25 +66,24 @@ public class StageBackApplication {
 //                roleService.save(roleForClient);
 
 
-                User userAdmin = new User("admin","admin","admin","admin");
+                User userAdmin = new User("admin", "admin", "admin", "admin");
 //                if(userAdmin.getRoles()==null)
 //                    userAdmin.setRoles(new ArrayList<>());
 //                userAdmin.getRoles().add(roleForAdmin);
                 userService.saveAdmin(userAdmin);
 //
-                 User userGerant = new User("gerant","gerant","gerant","gerant");
+                User userGerant = new User("gerant", "gerant", "gerant", "gerant");
 //                if(userGerant.getRoles()==null)
 //                    userGerant.setRoles(new ArrayList<>());
 //                userGerant.getRoles().add(roleForGerant);
                 userService.saveAGENT(userGerant);
 //
-                 User userClient = new User("client","client","client","client");
+                User userClient = new User("client", "client", "client", "client");
 //                if(userClient.getRoles()==null)
 //                    userClient.setRoles(new ArrayList<>());
 //                userClient.getRoles().add(roleForClient);
                 userService.save(userClient);
-                
-                
+
 
             }
         };
@@ -97,38 +95,38 @@ public class StageBackApplication {
         permissions.add(new Permission("Commande.view"));
         permissions.add(new Permission("Commande.add"));
         permissions.add(new Permission("Commande.delete"));
-        
+
         permissions.add(new Permission("Paiment.edit"));
         permissions.add(new Permission("Paiment.list"));
         permissions.add(new Permission("Paiment.view"));
         permissions.add(new Permission("Paiment.add"));
         permissions.add(new Permission("Paiment.delete"));
-        
+
         permissions.add(new Permission("User.edit"));
         permissions.add(new Permission("User.list"));
         permissions.add(new Permission("User.view"));
         permissions.add(new Permission("User.add"));
         permissions.add(new Permission("User.delete"));
-        
+
         permissions.add(new Permission("Formation.edit"));
         permissions.add(new Permission("Formation.list"));
         permissions.add(new Permission("Formation.view"));
         permissions.add(new Permission("Formation.add"));
         permissions.add(new Permission("Formation.delete"));
-        
+
         permissions.add(new Permission("Congres.edit"));
         permissions.add(new Permission("Congres.list"));
         permissions.add(new Permission("Congres.view"));
         permissions.add(new Permission("Congres.add"));
         permissions.add(new Permission("Congres.delete"));
-        
+
         permissions.add(new Permission("ProduitBio.edit"));
         permissions.add(new Permission("ProduitBio.list"));
         permissions.add(new Permission("ProduitBio.view"));
         permissions.add(new Permission("ProduitBio.add"));
         permissions.add(new Permission("ProduitBio.delete"));
-        
-        
+
+
         permissions.add(new Permission("Panier.edit"));
         permissions.add(new Permission("Panier.list"));
         permissions.add(new Permission("Panier.view"));
@@ -138,7 +136,7 @@ public class StageBackApplication {
     }
 
 
-    private static void addpermissionsForGerant(List<Permission> permissions){
+    private static void addpermissionsForGerant(List<Permission> permissions) {
         permissions.add(new Permission("Commande.edit"));
         permissions.add(new Permission("Commande.list"));
         permissions.add(new Permission("Commande.view"));
@@ -176,13 +174,12 @@ public class StageBackApplication {
         permissions.add(new Permission("Panier.view"));
         permissions.add(new Permission("Panier.add"));
         permissions.add(new Permission("Panier.delete"));
-        
-        
-   
+
+
     }
 
 
-    private static void addPermissionForClient(List<Permission> permissions){
+    private static void addPermissionForClient(List<Permission> permissions) {
         permissions.add(new Permission("Commande.edit"));
         permissions.add(new Permission("Commande.view"));
         permissions.add(new Permission("Commande.add"));
@@ -204,7 +201,7 @@ public class StageBackApplication {
         permissions.add(new Permission("Panier.view"));
         permissions.add(new Permission("Panier.add"));
         permissions.add(new Permission("Panier.delete"));
-        
-    }
 
     }
+
+}

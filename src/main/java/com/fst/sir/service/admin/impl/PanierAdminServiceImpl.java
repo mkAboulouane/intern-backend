@@ -7,14 +7,12 @@ import com.fst.sir.dao.PanierDao;
 import com.fst.sir.enums.EtatCommande;
 import com.fst.sir.security.bean.User;
 import com.fst.sir.security.common.SecurityUtil;
-import com.fst.sir.security.service.facade.UserService;
 import com.fst.sir.service.admin.facade.FormationAdminService;
 import com.fst.sir.service.admin.facade.PanierAdminService;
 import com.fst.sir.service.client.facade.ProduitPanierItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Access;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,8 +57,7 @@ public class PanierAdminServiceImpl implements PanierAdminService {
         User user = SecurityUtil.getCurrentUser();
         if (user == null) {
             return null;
-        }
-        else {
+        } else {
             panier.setUser(user);
             Formation formation = formationAdminService.findByNom(panier.getFormation().getNom());
             if (formation != null) {
@@ -70,10 +67,10 @@ public class PanierAdminServiceImpl implements PanierAdminService {
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
             panier.setPrixTotal(formation.getPrix());
             Panier panier1 = panierDao.save(panier);
-            if(panier.getProduitPanierItems()!=null){
+            if (panier.getProduitPanierItems() != null) {
                 List<ProduitPanierItem> produitPanierItemList = new ArrayList<>();
-                panier.getProduitPanierItems().forEach(e->  produitPanierItemList.add(produitPanierItemService.save(e)) );
-                produitPanierItemList.forEach(e-> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
+                panier.getProduitPanierItems().forEach(e -> produitPanierItemList.add(produitPanierItemService.save(e)));
+                produitPanierItemList.forEach(e -> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
                 return panier1;
             }
             return panier;
@@ -86,8 +83,7 @@ public class PanierAdminServiceImpl implements PanierAdminService {
         User user = SecurityUtil.getCurrentUser();
         if (user == null || entity == null) {
             return null;
-        }
-        else {
+        } else {
             panier.setId(entity.getId());
             panier.setUser(user);
             Formation formation = formationAdminService.findByNom(panier.getFormation().getNom());
@@ -98,10 +94,10 @@ public class PanierAdminServiceImpl implements PanierAdminService {
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
             panier.setPrixTotal(formation.getPrix());
             Panier panier1 = panierDao.save(panier);
-            if(panier.getProduitPanierItems()!=null){
+            if (panier.getProduitPanierItems() != null) {
                 List<ProduitPanierItem> produitPanierItemList = new ArrayList<>();
-                panier.getProduitPanierItems().forEach(e->  produitPanierItemList.add(produitPanierItemService.save(e)) );
-                produitPanierItemList.forEach(e-> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
+                panier.getProduitPanierItems().forEach(e -> produitPanierItemList.add(produitPanierItemService.save(e)));
+                produitPanierItemList.forEach(e -> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
                 return panier1;
             }
             return panier;

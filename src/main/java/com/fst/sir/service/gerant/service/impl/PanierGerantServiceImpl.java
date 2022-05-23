@@ -56,8 +56,7 @@ public class PanierGerantServiceImpl implements PanierGerantService {
         User user = SecurityUtil.getCurrentUser();
         if (user == null) {
             return null;
-        }
-        else {
+        } else {
             panier.setUser(user);
             Formation formation = formationAdminService.findByNom(panier.getFormation().getNom());
             if (formation != null) {
@@ -67,10 +66,10 @@ public class PanierGerantServiceImpl implements PanierGerantService {
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
             panier.setPrixTotal(formation.getPrix());
             Panier panier1 = panierDao.save(panier);
-            if(panier.getProduitPanierItems()!=null){
+            if (panier.getProduitPanierItems() != null) {
                 List<ProduitPanierItem> produitPanierItemList = new ArrayList<>();
-                panier.getProduitPanierItems().forEach(e->  produitPanierItemList.add(produitPanierItemService.save(e)) );
-                produitPanierItemList.forEach(e-> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
+                panier.getProduitPanierItems().forEach(e -> produitPanierItemList.add(produitPanierItemService.save(e)));
+                produitPanierItemList.forEach(e -> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
                 return panier1;
             }
             return panier;
@@ -83,8 +82,7 @@ public class PanierGerantServiceImpl implements PanierGerantService {
         User user = SecurityUtil.getCurrentUser();
         if (user == null || entity == null) {
             return null;
-        }
-        else {
+        } else {
             panier.setId(entity.getId());
             panier.setUser(user);
             Formation formation = formationAdminService.findByNom(panier.getFormation().getNom());
@@ -95,10 +93,10 @@ public class PanierGerantServiceImpl implements PanierGerantService {
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
             panier.setPrixTotal(formation.getPrix());
             Panier panier1 = panierDao.save(panier);
-            if(panier.getProduitPanierItems()!=null){
+            if (panier.getProduitPanierItems() != null) {
                 List<ProduitPanierItem> produitPanierItemList = new ArrayList<>();
-                panier.getProduitPanierItems().forEach(e->  produitPanierItemList.add(produitPanierItemService.save(e)) );
-                produitPanierItemList.forEach(e-> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
+                panier.getProduitPanierItems().forEach(e -> produitPanierItemList.add(produitPanierItemService.save(e)));
+                produitPanierItemList.forEach(e -> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
                 return panier1;
             }
             return panier;

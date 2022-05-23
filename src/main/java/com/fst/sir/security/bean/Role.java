@@ -16,53 +16,61 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
     private String authority;
 
-    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @ManyToMany()
-    @JoinTable(name = "roles_permissions", joinColumns = { @JoinColumn(name = "ROLE_ID") }, inverseJoinColumns = {
-         @JoinColumn(name = "PERMISSION_ID") })
+    @JoinTable(name = "roles_permissions", joinColumns = {@JoinColumn(name = "ROLE_ID")}, inverseJoinColumns = {
+            @JoinColumn(name = "PERMISSION_ID")})
     private List<Permission> permissions = new ArrayList<>();
 
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
-    public Role(){
+    public Role() {
         super();
     }
 
-    public Long getId(){
+    public Long getId() {
         return this.id;
     }
-    public void setId(Long id){
+
+    public void setId(Long id) {
         this.id = id;
     }
-    public String getAuthority(){
+
+    public String getAuthority() {
         return this.authority;
     }
-    public void setAuthority(String authority){
+
+    public void setAuthority(String authority) {
         this.authority = authority;
     }
-    public Date getCreatedAt(){
+
+    public Date getCreatedAt() {
         return this.createdAt;
     }
-    public void setCreatedAt(Date createdAt){
+
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-    public Date getUpdatedAt(){
+
+    public Date getUpdatedAt() {
         return this.updatedAt;
     }
-    public void setUpdatedAt(Date updatedAt){
+
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
     public List<Permission> getPermissions() {
         return permissions;
     }

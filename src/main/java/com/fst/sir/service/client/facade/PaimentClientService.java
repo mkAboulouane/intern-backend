@@ -14,6 +14,7 @@ public interface PaimentClientService {
     List<Paiment> findByPanierUserUsername(String username);
 
     Paiment findByReference(String reference);
+
     int deleteByReference(String reference);
 
     Paiment save(Paiment paiment);

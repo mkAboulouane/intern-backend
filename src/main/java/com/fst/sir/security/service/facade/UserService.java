@@ -3,7 +3,6 @@ package com.fst.sir.security.service.facade;
 import com.fst.sir.security.bean.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -39,8 +38,8 @@ public interface UserService extends UserDetailsService {
 
     User findByUsernameWithRoles(String username);
 
-    int  deleteByUsername(String username);
+    int deleteByUsername(String username);
 
-    public UserDetails loadUserByUsername(String username)  ;
+    public UserDetails loadUserByUsername(String username);
 
 }
