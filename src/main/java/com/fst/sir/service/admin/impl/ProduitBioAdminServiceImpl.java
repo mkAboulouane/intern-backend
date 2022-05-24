@@ -29,7 +29,7 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
 
     @Override
     public int deleteByNom(String nom) {
-        return 0;
+        return produitBioDao.deleteByNom(nom);
     }
 
     @Override

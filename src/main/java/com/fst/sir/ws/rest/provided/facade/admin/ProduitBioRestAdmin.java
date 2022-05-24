@@ -23,7 +23,8 @@ public class ProduitBioRestAdmin {
         return produitBioAdminService.findByNom(nom);
     }
 
-    public int deleteByNom(String nom) {
+    @DeleteMapping("/{nom}")
+    public int deleteByNom(@PathVariable String nom) {
         return produitBioAdminService.deleteByNom(nom);
     }
 

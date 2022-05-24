@@ -24,7 +24,7 @@ public class CongresAdminServiceImpl implements CongresAdminService {
 
     @Override
     public int deleteByNom(String nom) {
-        return 0;
+        return congresDao.deleteByNom(nom);
     }
 
     @Override
