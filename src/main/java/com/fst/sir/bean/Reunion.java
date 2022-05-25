@@ -23,6 +23,7 @@ public class Reunion {
     private String encadrantProf;
 
 
+    @Lob
     private String description;
     private String duree;
     private boolean visible;
