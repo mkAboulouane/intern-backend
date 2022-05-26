@@ -34,6 +34,7 @@ public class ProduitBio {
     private String description;
     private String photos;
     private double prix;
+    private double prixAncien;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)

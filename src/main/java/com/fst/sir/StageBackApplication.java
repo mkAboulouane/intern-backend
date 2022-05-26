@@ -31,7 +31,7 @@ public class StageBackApplication {
     CommandLineRunner start(UserService userService, RoleService roleService) {
         return args -> {
 
-            if (false) {
+            if (true) {
 
 //                 final String str = "admin";
 

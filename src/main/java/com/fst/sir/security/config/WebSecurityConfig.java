@@ -45,6 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/register").permitAll();
+        // temporally
+//                http.authorizeRequests().antMatchers("/admin/**").permitAll();
 
         // get
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/admin/formation/").permitAll();
@@ -56,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/admin/produit-bio/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
 
 
-        http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
+      //  http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
         http.authorizeRequests().antMatchers("/gerant/**").hasAnyAuthority(AuthoritiesConstants.AGENT);
         http.authorizeRequests().antMatchers("/app/**").hasAnyAuthority(AuthoritiesConstants.CLIENT);
 

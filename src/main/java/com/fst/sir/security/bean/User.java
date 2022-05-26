@@ -30,6 +30,9 @@ public class User implements UserDetails {
     protected String username;
     protected String password;
     protected String phone;
+    protected String pays;
+    protected String city;
+    protected String adress;
     protected String prenom;
     protected String nom;
     protected boolean passwordChanged;
@@ -81,6 +84,29 @@ public class User implements UserDetails {
         return passwordChanged;
     }
 
+    public String getPays() {
+        return pays;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
 
     public Long getId() {
         return id;
