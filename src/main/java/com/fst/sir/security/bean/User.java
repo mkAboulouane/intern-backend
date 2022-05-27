@@ -31,6 +31,7 @@ public class User implements UserDetails {
     protected String password;
     protected String phone;
     protected String pays;
+    protected String gender;
     protected String city;
     protected String adress;
     protected String prenom;
@@ -239,5 +240,13 @@ public class User implements UserDetails {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
