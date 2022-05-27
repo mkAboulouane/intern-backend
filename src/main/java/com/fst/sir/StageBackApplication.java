@@ -37,7 +37,7 @@ public class StageBackApplication {
     CommandLineRunner start(UserService userService, RoleService roleService, FormationAdminService formationAdminService, CongresAdminService congresAdminService, ProduitBioAdminService produitBioAdminService) {
         return args -> {
 
-            if (true) {
+            if (false) {
                 int  i = 10;
                 User userAdmin = new User("admin", "admin", "admin", "admin");
                 userService.saveAdmin(userAdmin);
@@ -61,7 +61,7 @@ public class StageBackApplication {
                     congres.setEncadrantProf("khalil");
                     congresAdminService.save(congres);
 
-                    ProduitBio produitBio = new ProduitBio(null,"Lantilles",i1>=7,true,true,null,2*i1, "L'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux. Les sections 1.10.32 et 1.10.33 du De Finibus Bonorum et Malorum",null,Math.random()*1500,Math.random()*5000,null);
+                    ProduitBio produitBio = new ProduitBio(null,"Lantilles "+i1,i1>=7,true,true,null,2*i1, "L'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux. Les sections 1.10.32 et 1.10.33 du De Finibus Bonorum et Malorum",null,Math.random()*1500,Math.random()*5000,null);
                     produitBioAdminService.save(produitBio);
 
                 }
