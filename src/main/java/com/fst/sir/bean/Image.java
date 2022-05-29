@@ -16,7 +16,6 @@ public class Image {
     //image bytes can have large lengths so we specify a value
     //which is more than the default length for picByte column
     @Lob
-    @Column(name = "picByte", length = 1000)
     private byte[] picByte;
 
     public Image() {
