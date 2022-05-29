@@ -10,24 +10,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 @RestController
-@RequestMapping("/admin/upload")
+@RequestMapping("/admin/image")
 public class ImageRestAdmin {
     @Autowired
     private ImageAdminService imageAdminService;
 
 
+    @GetMapping("/")
+    public List<Image> findAll() {
+        return imageAdminService.findAll();
+    }
+
     @PostMapping("/")
-//    public ResponseEntity.BodyBuilder save(@RequestParam("file") MultipartFile file) throws IOException {
     public int save(@RequestParam("file") MultipartFile file) throws IOException {
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
         Image image = new Image(file.getOriginalFilename(), file.getContentType(),compressBytes(file.getBytes()));
        return imageAdminService.save(image);
-//        return ResponseEntity.status(HttpStatus.OK);
     }
 
     @GetMapping("/{name}")

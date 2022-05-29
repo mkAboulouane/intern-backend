@@ -6,11 +6,17 @@ import com.fst.sir.service.admin.facade.ImageAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ImageAdminServiceImpl implements ImageAdminService {
    @Autowired
    private ImageDao imageDao;
 
+    @Override
+    public List<Image> findAll() {
+        return imageDao.findAll();
+    }
 
     @Override
     public int save(Image image) {
