@@ -37,7 +37,7 @@ public class StageBackApplication {
     CommandLineRunner start(UserService userService, RoleService roleService, FormationAdminService formationAdminService, CongresAdminService congresAdminService, ProduitBioAdminService produitBioAdminService) {
         return args -> {
 
-            if (false) {
+            if (true) {
                 int  i = 10;
                 User userAdmin = new User("admin", "admin", "admin", "admin");
                 userService.saveAdmin(userAdmin);

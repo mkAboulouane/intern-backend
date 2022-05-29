@@ -7,21 +7,25 @@ import javax.persistence.*;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String type;
 
+    private Long id;
+
+    private String name;
+
+    private String type;
+    //image bytes can have large lengths so we specify a value
+    //which is more than the default length for picByte column
     @Lob
-    private byte[] image;
+    @Column(name = "picByte", length = 1000)
+    private byte[] picByte;
 
     public Image() {
     }
 
-    public Image(Long id, String name, String type, byte[] image) {
-        this.id = id;
+    public Image(String name, String type, byte[] picByte) {
         this.name = name;
         this.type = type;
-        this.image = image;
+        this.picByte = picByte;
     }
 
     public Long getId() {
@@ -48,11 +52,12 @@ public class Image {
         this.type = type;
     }
 
-    public byte[] getImage() {
-        return image;
+    public byte[] getPicByte() {
+        return picByte;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setPicByte(byte[] picByte) {
+        this.picByte = picByte;
     }
+
 }
