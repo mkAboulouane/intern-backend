@@ -130,34 +130,23 @@ public class UserServiceImpl implements UserService {
     /*  pour un Admin */
     @Override
     public User saveAdmin(User user) {
-        User foundedUserByUsername = findByUsername(user.getUsername());
-        User foundedUserByEmail = userDao.findByEmail(user.getEmail());
-        User foundedUserByPhone = userDao.findByPhone(user.getPhone());
-        if (foundedUserByUsername != null || foundedUserByEmail != null || foundedUserByPhone != null) return null;
+        User userInit = init(user);
+        if (userInit==null) return null;
         else {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            user.setAccountNonExpired(true);
-            user.setAccountNonLocked(true);
-            user.setCredentialsNonExpired(true);
-            user.setEnabled(true);
-            user.setPasswordChanged(false);
-            user.setCreatedAt(new Date());
 
             Role roleForAdmin = new Role();
             roleForAdmin.setAuthority(AuthoritiesConstants.ADMIN);
-            user.getRoles().add(roleForAdmin);
+            userInit.getRoles().add(roleForAdmin);
 
-            if (user.getRoles() != null) {
+            if (userInit.getRoles() != null) {
                 Collection<Role> roles = new ArrayList<Role>();
-                for (Role role : user.getRoles()) {
+                for (Role role : userInit.getRoles()) {
                     roles.add(roleService.save(role));
                 }
-                user.setRoles(roles);
+                userInit.setRoles(roles);
             }
 
-            User mySaved = userDao.save(user);
-
-            return mySaved;
+            return userDao.save(userInit);
         }
     }
 
@@ -219,37 +208,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        User foundedUserByUsername = findByUsername(user.getUsername());
-        User foundedUserByEmail = userDao.findByEmail(user.getEmail());
-        User foundedUserByPhone = userDao.findByPhone(user.getPhone());
-        if (foundedUserByUsername != null || foundedUserByEmail != null || foundedUserByPhone != null) return null;
+        User userInit = init(user);
+        if (userInit==null) return null;
         else {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            user.setAccountNonExpired(true);
-            user.setAccountNonLocked(true);
-            user.setCredentialsNonExpired(true);
-            user.setEnabled(true);
-            user.setPasswordChanged(false);
-            user.setCreatedAt(new Date());
-
-            /*  pour un normal utilisateur on lui a donne le role Client  */
-
             Role roleForAdmin = new Role();
             roleForAdmin.setAuthority(AuthoritiesConstants.CLIENT);
-            user.getRoles().add(roleForAdmin);
+            userInit.getRoles().add(roleForAdmin);
 
-            if (user.getRoles() != null) {
+            if (userInit.getRoles() != null) {
                 Collection<Role> roles = new ArrayList<Role>();
-                for (Role role : user.getRoles()) {
+                for (Role role : userInit.getRoles()) {
                     roles.add(roleService.save(role));
                 }
-                user.setRoles(roles);
+                userInit.setRoles(roles);
             }
 
 
-            User mySaved = userDao.save(user);
-
-            return mySaved;
+            return userDao.save(userInit);
         }
     }
 
