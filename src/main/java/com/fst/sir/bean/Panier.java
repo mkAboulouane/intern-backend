@@ -24,8 +24,13 @@ public class Panier {
 
     private String reference;
 
+    private String lieu;
+
+    private String phone;
+
     private double prixTotal;
 
+    @Enumerated(EnumType.STRING)
     private EtatCommande etatCommande;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

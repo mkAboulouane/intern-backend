@@ -10,6 +10,9 @@ import com.fst.sir.service.client.facade.ProduitPanierItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ProduitPanierItemServiceImpl implements ProduitPanierItemService {
 
@@ -21,12 +24,21 @@ public class ProduitPanierItemServiceImpl implements ProduitPanierItemService {
     private PanierAdminService panierAdminService;
 
     @Override
+    public List<ProduitPanierItem> save(List<ProduitPanierItem> produitPanierItem) {
+        List<ProduitPanierItem> produitPanierItems = new ArrayList<>();
+        for (ProduitPanierItem panierItem : produitPanierItem) {
+            produitPanierItems.add(save(panierItem));
+        }
+        return produitPanierItems;
+    }
+
+    @Override
     public ProduitPanierItem save(ProduitPanierItem produitPanierItem) {
         ProduitBio produitBio = produitBioAdminService.findByNom(produitPanierItem.getProduitBio().getNom());
-        Panier panier = panierAdminService.findByReference(produitPanierItem.getPanier().getReference());
-        produitPanierItem.setPrix(produitPanierItem.getPrix() * produitPanierItem.getQuantite());
+//        Panier panier = panierAdminService.findByReference(produitPanierItem.getPanier().getReference());
+        produitPanierItem.setPrix(produitBio.getPrix() * produitPanierItem.getQuantite());
         produitPanierItem.setProduitBio(produitBio);
-        produitPanierItem.setPanier(panier);
+//        produitPanierItem.setPanier(panier);
         return produitPanierItemDao.save(produitPanierItem);
     }
 

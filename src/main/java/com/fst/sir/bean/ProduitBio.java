@@ -44,6 +44,20 @@ public class ProduitBio {
     @OneToMany(mappedBy = "produitBio",fetch = FetchType.EAGER)
     private List<Image> images;
 
+    public ProduitBio(Long id, String nom, boolean promotion, boolean visible, boolean available, Date addedAt, int quantity, String description, String photos, double prix, double prixAncien, Date updatedAt) {
+        this.id = id;
+        this.nom = nom;
+        this.promotion = promotion;
+        this.visible = visible;
+        this.available = available;
+        this.addedAt = addedAt;
+        this.quantity = quantity;
+        this.description = description;
+        this.photos = photos;
+        this.prix = prix;
+        this.prixAncien = prixAncien;
+        this.updatedAt = updatedAt;
+    }
 
     @Override
     public boolean equals(Object o) {
