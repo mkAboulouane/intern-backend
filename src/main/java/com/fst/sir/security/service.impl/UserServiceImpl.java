@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findByAuthorities() {
-        List<User> users = findAll();
+        List<User> users = userDao.findAll();
         List<User> gerants = new ArrayList<>();
         for (User user : users) {
             for (Role authority : user.getAuthorities()) {
