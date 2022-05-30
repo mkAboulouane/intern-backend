@@ -63,6 +63,8 @@ public class UserServiceImpl implements UserService {
     }
 */
 
+
+
     @Override
     public List<User> findByAuthorities() {
         List<User> users = userDao.findAll();
@@ -85,10 +87,7 @@ public class UserServiceImpl implements UserService {
         String result = list.get(0);
         return result;
     }
-
-    /*  pour un AGENT */
-    @Override
-    public User saveAGENT(User user) {
+    private User init(User user){
         User foundedUserByUsername = findByUsername(user.getUsername());
         User foundedUserByEmail = userDao.findByEmail(user.getEmail());
         User foundedUserByPhone = userDao.findByPhone(user.getPhone());
@@ -101,22 +100,30 @@ public class UserServiceImpl implements UserService {
             user.setEnabled(true);
             user.setPasswordChanged(false);
             user.setCreatedAt(new Date());
+            return user;
+        }
+    }
+
+    /*  pour un AGENT */
+    @Override
+    public User saveAGENT(User user) {
+            User userInit = init(user);
+        if (userInit==null) return null;
+        else {
 
             Role roleForAdmin = new Role();
             roleForAdmin.setAuthority(AuthoritiesConstants.AGENT);
-            user.getRoles().add(roleForAdmin);
+            userInit.getRoles().add(roleForAdmin);
 
             if (user.getRoles() != null) {
                 Collection<Role> roles = new ArrayList<Role>();
                 for (Role role : user.getRoles()) {
                     roles.add(roleService.save(role));
                 }
-                user.setRoles(roles);
+                userInit.setRoles(roles);
             }
 
-            User mySaved = userDao.save(user);
-
-            return mySaved;
+            return userDao.save(userInit);
         }
     }
 
