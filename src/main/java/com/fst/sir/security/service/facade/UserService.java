@@ -12,6 +12,9 @@ public interface UserService extends UserDetailsService {
 
     List<User> findAll();
 
+
+    List<User> findByAuthorities();
+
     User findByUsername(String username);
 
     User findByPhone(String phone);

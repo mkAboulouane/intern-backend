@@ -14,6 +14,11 @@ public class UserRest {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/agent/")
+    public List<User> findByAuthorities() {
+        return userService.findByAuthorities();
+    }
+
     @GetMapping("/")
     public List<User> findAll() {
         return this.userService.findAll();

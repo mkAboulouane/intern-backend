@@ -8,6 +8,8 @@ public interface ImageAdminService {
 
     int save(Image image);
 
+    int save(Image[] images);
+
     int update(Image image);
 
     int delete(Long id);
@@ -15,5 +17,9 @@ public interface ImageAdminService {
     Image findByName(String name);
 
     List<Image> findAll();
+
+//    byte[] compressBytes(byte[] data);
+//
+//    byte[] decompressBytes(byte[] data)
 
 }

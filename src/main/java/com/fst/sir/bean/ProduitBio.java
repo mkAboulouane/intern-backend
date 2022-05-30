@@ -41,7 +41,7 @@ public class ProduitBio {
     @Temporal(TemporalType.DATE)
     private Date updatedAt;
 
-    @OneToMany
+    @OneToMany(mappedBy = "produitBio",fetch = FetchType.EAGER)
     private List<Image> images;
 
 

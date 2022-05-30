@@ -64,6 +64,20 @@ public class UserServiceImpl implements UserService {
 */
 
     @Override
+    public List<User> findByAuthorities() {
+        List<User> users = findAll();
+        List<User> gerants = new ArrayList<>();
+        for (User user : users) {
+            for (Role authority : user.getAuthorities()) {
+                if(authority.getAuthority().equals("AGENT")){
+                    gerants.add(user);
+                }
+            }
+        }
+        return gerants;
+    }
+
+    @Override
     public String getUserRole(String username) {
         User user = findByUsername(username);
         List<String> list = new ArrayList<>();
@@ -152,7 +166,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return userDao.findAll();
+        List<User> users = userDao.findAll();
+        List<User> clients = new ArrayList<>();
+        for (User user : users) {
+            for (Role authority : user.getAuthorities()) {
+                if(authority.getAuthority().equals("CLIENT")){
+                    clients.add(user);
+                }
+            }
+        }
+        return clients;
     }
 
     @Override
@@ -222,23 +245,6 @@ public class UserServiceImpl implements UserService {
             return mySaved;
         }
     }
-
-//            private Chercheur transformToChercheur(User user) {
-//            Chercheur chercheur = new Chercheur();
-//            chercheur.setUsername(user.getUsername() + "-CH");
-//            chercheur.setPassword(user.getPassword());
-//            chercheur.setEmail(user.getEmail());
-//            chercheur.setPrenom(user.getPrenom());
-//            chercheur.setNom(user.getNom());
-//            chercheur.getRoles().addAll(user.getRoles());
-//            chercheur.setAccountNonExpired(true);
-//            chercheur.setAccountNonLocked(true);
-//            chercheur.setCredentialsNonExpired(true);
-//            chercheur.setEnabled(true);
-//            chercheur.setPasswordChanged(false);
-//            chercheur.setCreatedAt(new Date());
-//            return chercheur;
-//            }
 
     @Override
     public User update(User user) {

@@ -3,8 +3,6 @@ package com.fst.sir.ws.rest.provided.facade.admin;
 import com.fst.sir.bean.Image;
 import com.fst.sir.service.admin.facade.ImageAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +20,11 @@ public class ImageRestAdmin {
     private ImageAdminService imageAdminService;
 
 
+
+    public int delete(Long id) {
+        return imageAdminService.delete(id);
+    }
+
     @GetMapping("/")
     public List<Image> findAll() {
         return imageAdminService.findAll();
@@ -30,8 +33,8 @@ public class ImageRestAdmin {
     @PostMapping("/")
     public int save(@RequestParam("file") MultipartFile file) throws IOException {
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
-        Image image = new Image(file.getOriginalFilename(), file.getContentType(),compressBytes(file.getBytes()));
-       return imageAdminService.save(image);
+        Image image = new Image(file.getOriginalFilename(), file.getContentType(), compressBytes(file.getBytes()));
+        return imageAdminService.save(image);
     }
 
     @GetMapping("/{name}")
@@ -42,7 +45,9 @@ public class ImageRestAdmin {
         return image;
     }
 
-    // compress the image bytes before storing it in the database
+
+
+
     public static byte[] compressBytes(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setInput(data);
@@ -60,6 +65,7 @@ public class ImageRestAdmin {
         System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
         return outputStream.toByteArray();
     }
+
     // uncompress the image bytes before returning it to the angular application
     public static byte[] decompressBytes(byte[] data) {
         Inflater inflater = new Inflater();
@@ -77,21 +83,4 @@ public class ImageRestAdmin {
         return outputStream.toByteArray();
     }
 
-    /*
-    *     @GetMapping(path = { "/get/{imageName}" })
-    public ImageModel getImage(@PathVariable("imageName") String imageName) throws IOException {
-        final Optional<ImageModel> retrievedImage = imageRepository.findByName(imageName);
-        ImageModel img = new ImageModel(retrievedImage.get().getName(), retrievedImage.get().getType(),
-                decompressBytes(retrievedImage.get().getPicByte()));
-        return img;
-    }
-    * */
-
-    public int update(Image image) {
-        return imageAdminService.update(image);
-    }
-
-    public int delete(Long id) {
-        return imageAdminService.delete(id);
-    }
 }

@@ -2,6 +2,7 @@ package com.fst.sir.service.admin.impl;
 
 import com.fst.sir.bean.ProduitBio;
 import com.fst.sir.dao.ProduitBioDao;
+import com.fst.sir.service.admin.facade.ImageAdminService;
 import com.fst.sir.service.admin.facade.ProduitBioAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
 
     @Autowired
     private ProduitBioDao produitBioDao;
+    @Autowired
+    private ImageAdminService imageAdminService;
 
     @Override
     public ProduitBio findByNom(String nom) {
@@ -36,6 +39,9 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
     public ProduitBio save(ProduitBio produitBio) {
         ProduitBio produitBio1 = findByNom(produitBio.getNom());
         if (produitBio1 == null) {
+            if(produitBio.getImages()!=null){
+                produitBio.getImages().forEach(e->imageAdminService.save(e));
+            }
             produitBio.setAddedAt(new Date());
             return produitBioDao.save(produitBio);
         } else return null;
