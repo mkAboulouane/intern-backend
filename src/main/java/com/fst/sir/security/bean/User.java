@@ -1,6 +1,7 @@
 package com.fst.sir.security.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fst.sir.bean.Image;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -37,6 +38,10 @@ public class User implements UserDetails {
     protected String prenom;
     protected String nom;
     protected boolean passwordChanged;
+
+    @OneToOne
+    protected Image image;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = {@JoinColumn(name = "USER_ID")}, inverseJoinColumns = {
@@ -248,5 +253,13 @@ public class User implements UserDetails {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

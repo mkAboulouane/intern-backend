@@ -18,6 +18,9 @@ public class Image {
     @Lob
     private byte[] picByte;
 
+    @ManyToOne
+    private ProduitBio produitBio;
+
     public Image() {
     }
 
@@ -59,4 +62,11 @@ public class Image {
         this.picByte = picByte;
     }
 
+    public ProduitBio getProduitBio() {
+        return produitBio;
+    }
+
+    public void setProduitBio(ProduitBio produitBio) {
+        this.produitBio = produitBio;
+    }
 }

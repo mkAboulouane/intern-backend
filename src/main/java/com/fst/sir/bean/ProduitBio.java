@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -39,6 +40,10 @@ public class ProduitBio {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date updatedAt;
+
+    @OneToMany
+    private List<Image> images;
+
 
     @Override
     public boolean equals(Object o) {

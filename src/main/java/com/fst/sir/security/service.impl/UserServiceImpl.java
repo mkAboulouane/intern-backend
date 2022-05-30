@@ -140,6 +140,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    private static void savePic(User user){
+            user.setImage(user.getImage());
+    }
+
 
     @Override
     public User findByPhone(String phone) {
@@ -251,6 +255,7 @@ public class UserServiceImpl implements UserService {
             foundedUser.setAccountNonExpired(user.isAccountNonExpired());
             foundedUser.setAuthorities(new ArrayList<>());
             Collection<Role> roles = new ArrayList<Role>();
+            savePic(foundedUser);
             for (Role role : user.getRoles()) {
                 roles.add(roleService.save(role));
             }
