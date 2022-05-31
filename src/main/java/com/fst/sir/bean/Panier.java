@@ -1,6 +1,7 @@
 package com.fst.sir.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fst.sir.enums.EtatCommande;
 import com.fst.sir.security.bean.User;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,10 @@ public class Panier {
     private String reference;
 
     private String lieu;
+
+    private String ville;
+
+    private String pays;
 
     private String phone;
 

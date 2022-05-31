@@ -7,6 +7,7 @@ import com.fst.sir.dao.PanierDao;
 import com.fst.sir.enums.EtatCommande;
 import com.fst.sir.security.bean.User;
 import com.fst.sir.security.common.SecurityUtil;
+import com.fst.sir.security.service.facade.UserService;
 import com.fst.sir.service.admin.facade.FormationAdminService;
 import com.fst.sir.service.admin.facade.PanierAdminService;
 import com.fst.sir.service.client.facade.ProduitPanierItemService;
@@ -26,6 +27,8 @@ public class PanierAdminServiceImpl implements PanierAdminService {
     private FormationAdminService formationAdminService;
     @Autowired
     private ProduitPanierItemService produitPanierItemService;
+    @Autowired
+    private UserService userService;
 
     @Override
     public List<Panier> findAll() {
@@ -54,7 +57,8 @@ public class PanierAdminServiceImpl implements PanierAdminService {
 
     @Override
     public Panier save(Panier panier) {
-        User user = SecurityUtil.getCurrentUser();
+//        User user = SecurityUtil.getCurrentUser();
+        User user = userService.findByUsername(panier.getUser().getUsername());
         if (user == null) {
             return null;
         } else {

@@ -1,6 +1,7 @@
 package com.fst.sir.bean;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class ProduitPanierItem {
     private int quantite;
 
     @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Panier panier;
 
 }

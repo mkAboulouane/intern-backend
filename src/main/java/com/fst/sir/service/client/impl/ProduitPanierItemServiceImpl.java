@@ -24,6 +24,25 @@ public class ProduitPanierItemServiceImpl implements ProduitPanierItemService {
     private PanierAdminService panierAdminService;
 
     @Override
+    public Double prixTotal(List<ProduitPanierItem> produitPanierItems) {
+        Double result = 0D;
+        for (ProduitPanierItem produitPanierItem : produitPanierItems) {
+            ProduitBio produitBio = produitBioAdminService.findByNom(produitPanierItem.getProduitBio().getNom());
+            result +=  produitBio.getPrix()*produitPanierItem.getQuantite();
+        }
+        return result;
+    }
+
+    @Override
+    public List<ProduitPanierItem> save(List<ProduitPanierItem> produitPanierItems, Panier panier) {
+        List<ProduitPanierItem> result = new ArrayList<>();
+        for (ProduitPanierItem produitPanierItem : produitPanierItems) {
+            result.add(save(produitPanierItem,panier));
+        }
+        return result;
+    }
+
+    @Override
     public List<ProduitPanierItem> save(List<ProduitPanierItem> produitPanierItem) {
         List<ProduitPanierItem> produitPanierItems = new ArrayList<>();
         for (ProduitPanierItem panierItem : produitPanierItem) {
@@ -31,6 +50,14 @@ public class ProduitPanierItemServiceImpl implements ProduitPanierItemService {
         }
         return produitPanierItems;
     }
+
+    @Override
+    public ProduitPanierItem save(ProduitPanierItem produitPanierItem, Panier panier) {
+         produitPanierItem.setPanier(panier);
+         return save(produitPanierItem);
+    }
+
+
 
     @Override
     public ProduitPanierItem save(ProduitPanierItem produitPanierItem) {

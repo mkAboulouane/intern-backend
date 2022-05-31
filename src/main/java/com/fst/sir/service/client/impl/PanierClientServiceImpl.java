@@ -62,10 +62,10 @@ public class PanierClientServiceImpl implements PanierClientService {
 
     @Override
     public Panier save(Panier panier) {
-        User user = SecurityUtil.getCurrentUser();
+//        User user = SecurityUtil.getCurrentUser();
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //        User usr = (User) auth.getPrincipal();
-//        User user = userService.findByUsername(usr.getUsername());
+        User user = userService.findByUsername(panier.getUser().getUsername());
         if (user == null) {
             return null;
         } else {
@@ -77,15 +77,18 @@ public class PanierClientServiceImpl implements PanierClientService {
                 total.updateAndGet(v -> v + formation.getPrix());
             }
             panier.setDateAjout(new Date());
+            panier.setPrixTotal(total.get());
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
             if (!panier.getProduitPanierItems().isEmpty()) {
-                List<ProduitPanierItem> produitPanierItemList = produitPanierItemService.save(panier.getProduitPanierItems());
-                for (ProduitPanierItem produitPanierItem : produitPanierItemList) {
-                            total.updateAndGet(v-> v + produitPanierItem.getPrix());
-                }
+                total.updateAndGet(v-> v +produitPanierItemService.prixTotal(panier.getProduitPanierItems()));
+                panier.setPrixTotal(total.get());
+                Panier entity = panierDao.save(panier);
+                produitPanierItemService.save(panier.getProduitPanierItems(), entity);
+                return entity;
+            }else {
+                Panier entity = panierDao.save(panier);
+                return entity;
             }
-             panier.setPrixTotal(total.get());
-            return panierDao.save(panier);
         }
     }
 
