@@ -12,8 +12,12 @@ import com.fst.sir.service.admin.facade.FormationAdminService;
 import com.fst.sir.service.client.facade.PanierClientService;
 import com.fst.sir.service.client.facade.ProduitPanierItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,8 +62,10 @@ public class PanierClientServiceImpl implements PanierClientService {
 
     @Override
     public Panier save(Panier panier) {
-//        User user = SecurityUtil.getCurrentUser();
-        User user = userService.findByUsername(panier.getUser().getUsername());
+        User user = SecurityUtil.getCurrentUser();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User usr = (User) auth.getPrincipal();
+//        User user = userService.findByUsername(usr.getUsername());
         if (user == null) {
             return null;
         } else {
