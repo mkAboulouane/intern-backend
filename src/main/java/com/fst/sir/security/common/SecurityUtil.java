@@ -3,12 +3,14 @@ package com.fst.sir.security.common;
 import com.fst.sir.StageBackApplication;
 import com.fst.sir.security.bean.User;
 import com.fst.sir.security.service.facade.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Stream;
 
 
@@ -16,11 +18,13 @@ import java.util.stream.Stream;
 public class SecurityUtil {
 
     public static User getCurrentUser() {
+
         UserService userService = StageBackApplication.getCtx().getBean(UserService.class);
 
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Object user = securityContext.getAuthentication().getPrincipal();
         System.out.println(user);
+
         if (user instanceof String) {
             return userService.findByUsername((String) user);
         } else if (user instanceof User) {
@@ -28,6 +32,11 @@ public class SecurityUtil {
         } else {
             return null;
         }
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//       String username = (String) auth.getName();
+//        UserService userService = StageBackApplication.getCtx().getBean(UserService.class);
+//        User user = userService.findByUsername(username);
+//       return user;
     }
 
 

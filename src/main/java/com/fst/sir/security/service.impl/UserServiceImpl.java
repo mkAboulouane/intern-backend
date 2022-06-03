@@ -3,6 +3,7 @@ package com.fst.sir.security.service.impl;
 import com.fst.sir.security.bean.Role;
 import com.fst.sir.security.bean.User;
 import com.fst.sir.security.common.AuthoritiesConstants;
+import com.fst.sir.security.common.SecurityUtil;
 import com.fst.sir.security.dao.UserDao;
 import com.fst.sir.security.service.facade.RoleService;
 import com.fst.sir.security.service.facade.UserService;
@@ -63,7 +64,10 @@ public class UserServiceImpl implements UserService {
     }
 */
 
-
+    @Override
+    public User getCurrentUser() {
+        return SecurityUtil.getCurrentUser();
+    }
 
     @Override
     public List<User> findByAuthorities() {

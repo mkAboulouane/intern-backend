@@ -26,6 +26,8 @@ public class Reunion {
     @Lob
     private String description;
     private String duree;
+
+    private String date;
     private boolean visible;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

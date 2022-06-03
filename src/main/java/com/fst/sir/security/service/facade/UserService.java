@@ -27,6 +27,9 @@ public interface UserService extends UserDetailsService {
     User save(User user);
 
 
+    User getCurrentUser();
+
+
 //    User savePure(User user);
 
     /*  Admin  */
