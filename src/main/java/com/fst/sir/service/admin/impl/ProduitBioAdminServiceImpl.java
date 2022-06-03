@@ -1,9 +1,11 @@
 package com.fst.sir.service.admin.impl;
 
+import com.fst.sir.bean.Image;
 import com.fst.sir.bean.ProduitBio;
 import com.fst.sir.dao.ProduitBioDao;
 import com.fst.sir.service.admin.facade.ImageAdminService;
 import com.fst.sir.service.admin.facade.ProduitBioAdminService;
+import com.fst.sir.ws.rest.provided.facade.admin.ImageRestAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,38 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
     @Autowired
     private ImageAdminService imageAdminService;
 
+
+    @Override
+    public ProduitBio findById(Long id) {
+        return produitBioDao.findById(id).get();
+    }
+
+    @Override
+    public ProduitBio save(ProduitBio produitBio, String imageName) {
+        Image image1 = imageAdminService.findByName(imageName);
+        if(image1 == null) return null;
+        else {
+            produitBio.setImagePrincipal(image1);
+            produitBio.setAddedAt(new Date());
+            return produitBioDao.save(produitBio);
+        }
+    }
+
+    @Override
+    public ProduitBio save(ProduitBio produitBio) {
+        ProduitBio produitBio1 = findByNom(produitBio.getNom());
+        if (produitBio1 == null) {
+//            if(produitBio.getImagePrincipal()!=null){
+//                produitBio.setImagePrincipal(imageRestAdmin.save(produitBio.getImagePrincipal()));
+//                produitBio.getImages().forEach(e->imageAdminService.save(e));
+//            }
+
+            produitBio.setAddedAt(new Date());
+            return produitBioDao.save(produitBio);
+        } else return null;
+    }
+
+
     @Override
     public ProduitBio findByNom(String nom) {
         return produitBioDao.findByNom(nom);
@@ -35,17 +69,6 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
         return produitBioDao.deleteByNom(nom);
     }
 
-    @Override
-    public ProduitBio save(ProduitBio produitBio) {
-        ProduitBio produitBio1 = findByNom(produitBio.getNom());
-        if (produitBio1 == null) {
-            if(produitBio.getImages()!=null){
-                produitBio.getImages().forEach(e->imageAdminService.save(e));
-            }
-            produitBio.setAddedAt(new Date());
-            return produitBioDao.save(produitBio);
-        } else return null;
-    }
 
     @Override
     public ProduitBio update(ProduitBio produitBio) {

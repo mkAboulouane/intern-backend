@@ -13,6 +13,17 @@ public class ProduitBioRestAdmin {
     @Autowired
     private ProduitBioAdminService produitBioAdminService;
 
+
+    @GetMapping("/id/{id}")
+    public ProduitBio findById(@PathVariable Long id) {
+        return produitBioAdminService.findById(id);
+    }
+
+    @PostMapping("/save/{image}")
+    public ProduitBio save(@RequestBody ProduitBio produitBio,@PathVariable String image) {
+        return produitBioAdminService.save(produitBio, image);
+    }
+
     @GetMapping("/")
     public List<ProduitBio> findAll() {
         return produitBioAdminService.findAll();

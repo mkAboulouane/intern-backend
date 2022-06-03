@@ -39,6 +39,9 @@ public class ProduitBio {
     @Temporal(TemporalType.DATE)
     private Date updatedAt;
 
+    @OneToOne
+    private Image imagePrincipal;
+
     @OneToMany(mappedBy = "produitBio",fetch = FetchType.EAGER)
     private List<Image> images;
 
