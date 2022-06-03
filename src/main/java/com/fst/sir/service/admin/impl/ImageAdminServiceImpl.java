@@ -67,11 +67,11 @@ public class ImageAdminServiceImpl implements ImageAdminService {
 //    }
 
     @Override
-    public int save(Image image) {
-        if (findByName(image.getName()) != null) return -1;
+    public String save(Image image) {
+        if (findByName(image.getName()) != null) return "ce nom deja existe";
         else {
-            imageDao.save(image);
-            return 1;
+           Image entity = imageDao.save(image);
+            return entity.getName();
         }
     }
 

@@ -31,7 +31,7 @@ public class ImageRestAdmin {
     }
 
     @PostMapping("/")
-    public int save(@RequestParam("file") MultipartFile file) throws IOException {
+    public String save(@RequestParam("file") MultipartFile file) throws IOException {
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
         Image image = new Image(file.getOriginalFilename(), file.getContentType(), compressBytes(file.getBytes()));
         return imageAdminService.save(image);

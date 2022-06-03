@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ImageAdminService {
 
-    int save(Image image);
+    String save(Image image);
 
     int save(Image[] images);
 
