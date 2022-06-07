@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-@Transactional
 public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
 
     @Autowired
@@ -93,8 +92,12 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
 //    }
 
     @Override
-    public int deleteByNom(String nom) {
-        return produitBioDao.deleteByNom(nom);
+    @Transactional
+    public int deleteById(Long id) {
+         produitBioDao.deleteByImagePrincipalId(id);
+        produitBioDao.deleteById(id);
+
+        return 1;
     }
 
 

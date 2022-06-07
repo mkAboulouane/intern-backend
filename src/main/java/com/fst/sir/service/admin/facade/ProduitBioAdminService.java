@@ -12,7 +12,7 @@ public interface ProduitBioAdminService {
 
     ProduitBio findById(Long id);
 
-    int deleteByNom(String nom);
+    int deleteById(Long id);
 
     ProduitBio save(ProduitBio produitBio);
 

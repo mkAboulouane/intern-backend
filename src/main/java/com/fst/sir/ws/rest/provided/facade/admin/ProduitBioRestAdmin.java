@@ -36,9 +36,9 @@ public class ProduitBioRestAdmin {
         return produitBioAdminService.findByNom(nom);
     }
 
-    @DeleteMapping("/{nom}")
-    public int deleteByNom(@PathVariable String nom) {
-        return produitBioAdminService.deleteByNom(nom);
+    @DeleteMapping("/{id}")
+    public int deleteById(@PathVariable Long id) {
+        return produitBioAdminService.deleteById(id);
     }
 
 //    @PostMapping("/")

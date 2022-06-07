@@ -23,9 +23,9 @@ public class ProduitBioRestGerant {
         return produitBioAdminService.findByNom(nom);
     }
 
-    public int deleteByNom(String nom) {
-        return produitBioAdminService.deleteByNom(nom);
-    }
+//    public int deleteByNom(String nom) {
+//        return produitBioAdminService.deleteByNom(nom);
+//    }
 
     @PostMapping("/")
     public ProduitBio save(@RequestBody ProduitBio produitBio) {

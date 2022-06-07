@@ -15,6 +15,8 @@ public interface ProduitBioDao extends JpaRepository<ProduitBio, Long> {
 
     ProduitBio findByNom(String nom);
 
-    int deleteByNom(String nom);
+    void deleteById(Long id);
+
+    void deleteByImagePrincipalId(Long id);
 
 }
