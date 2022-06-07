@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         List<User> gerants = new ArrayList<>();
         for (User user : users) {
             for (Role authority : user.getAuthorities()) {
-                if(authority.getAuthority().equals("AGENT")){
+                if (authority.getAuthority().equals("AGENT")) {
                     gerants.add(user);
                 }
             }
@@ -91,7 +91,8 @@ public class UserServiceImpl implements UserService {
         String result = list.get(0);
         return result;
     }
-    private User init(User user){
+
+    private User init(User user) {
         User foundedUserByUsername = findByUsername(user.getUsername());
         User foundedUserByEmail = userDao.findByEmail(user.getEmail());
         User foundedUserByPhone = userDao.findByPhone(user.getPhone());
@@ -111,8 +112,8 @@ public class UserServiceImpl implements UserService {
     /*  pour un AGENT */
     @Override
     public User saveAGENT(User user) {
-            User userInit = init(user);
-        if (userInit==null) return null;
+        User userInit = init(user);
+        if (userInit == null) return null;
         else {
 
             Role roleForAdmin = new Role();
@@ -135,7 +136,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveAdmin(User user) {
         User userInit = init(user);
-        if (userInit==null) return null;
+        if (userInit == null) return null;
         else {
 
             Role roleForAdmin = new Role();
@@ -154,8 +155,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private static void savePic(User user){
-            user.setImage(user.getImage());
+    private static void savePic(User user) {
+        user.setImage(user.getImage());
     }
 
 
@@ -170,7 +171,7 @@ public class UserServiceImpl implements UserService {
         List<User> clients = new ArrayList<>();
         for (User user : users) {
             for (Role authority : user.getAuthorities()) {
-                if(authority.getAuthority().equals("CLIENT")){
+                if (authority.getAuthority().equals("CLIENT")) {
                     clients.add(user);
                 }
             }
@@ -213,7 +214,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         User userInit = init(user);
-        if (userInit==null) return null;
+        if (userInit == null) return null;
         else {
             Role roleForAdmin = new Role();
             roleForAdmin.setAuthority(AuthoritiesConstants.CLIENT);
@@ -267,6 +268,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return findByUsernameWithRoles(username);
+        User user = findByUsernameWithRoles(username);
+        User userDaoByEmail = userDao.findByEmail(username);
+        if (user != null || user.getId() != null)
+            return user;
+        else if (userDaoByEmail != null || userDaoByEmail.getId() == null)
+            return userDaoByEmail;
+        else return null;
+
     }
 }

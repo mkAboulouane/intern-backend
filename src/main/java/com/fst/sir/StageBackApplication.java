@@ -34,7 +34,7 @@ public class StageBackApplication {
     CommandLineRunner start(UserService userService, RoleService roleService, FormationAdminService formationAdminService, CongresAdminService congresAdminService, ProduitBioAdminService produitBioAdminService) {
         return args -> {
 
-            if (false) {
+            if (true) {
                 int i = 20;
                 User userAdmin = new User("admin", "admin", "admin", "admin");
                 userService.saveAdmin(userAdmin);
@@ -45,26 +45,24 @@ public class StageBackApplication {
                 User userClient = new User("client", "client", "client", "client");
                 userService.save(userClient);
 
-                for (int i1 = 0; i1 < i; i1++) {
-                    Formation formation = new Formation((int) (Math.random() * 2000), i1 * 3);
-                    formation.setNom("learn java " + i1);
-                    formation.setDescription("Plusieurs variations de Lorem Ipsum peuvent être trouvées ici ou là, mais la majeure partie d'entre elles a été altérée par l'addition d'humour ou de mots aléatoires qui ne ressemblent pas une seconde à du texte standard. Si vous voulez utiliser un passage du Lorem Ipsum, vous devez être sûr qu'il n'y a rien d'embarrassant caché dans le texte.");
-                    formation.setDuree("20");
-                    formationAdminService.save(formation);
-
-                    Congres congres = new Congres("Shishawa Mzoda " + i1);
-                    congres.setNom("Angular " + i1);
-                    congres.setDescription("Plusieurs variations de Lorem Ipsum peuvent être trouvées ici ou là, mais la majeure partie d'entre elles a été altérée par l'addition d'humour ou de mots aléatoires qui ne ressemblent pas une seconde à du texte standard. Si vous voulez utiliser un passage du Lorem Ipsum, vous devez être sûr qu'il n'y a rien d'embarrassant caché dans le texte.");
-                    congres.setEncadrantProf("Ana ana");
-                    congresAdminService.save(congres);
-
-                    ProduitBio produitBio = new ProduitBio(null, "Lantilles " + i1, i1 >= 7, true, true, null,  "L'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux. Les sections 1.10.32 et 1.10.33 du De Finibus Bonorum et Malorum", null, (int)(Math.random() * 1500),  (int)(Math.random() * 5000), null);
-                    produitBioAdminService.save(produitBio);
+//                for (int i1 = 0; i1 < i; i1++) {
+//                    Formation formation = new Formation((int) (Math.random() * 2000), i1 * 3);
+//                    formation.setNom("learn java " + i1);
+//                    formation.setDescription("Plusieurs variations de Lorem Ipsum peuvent être trouvées ici ou là, mais la majeure partie d'entre elles a été altérée par l'addition d'humour ou de mots aléatoires qui ne ressemblent pas une seconde à du texte standard. Si vous voulez utiliser un passage du Lorem Ipsum, vous devez être sûr qu'il n'y a rien d'embarrassant caché dans le texte.");
+//                    formation.setDuree("20");
+//                    formationAdminService.save(formation);
+//
+//                    Congres congres = new Congres("Shishawa Mzoda " + i1);
+//                    congres.setNom("Angular " + i1);
+//                    congres.setDescription("Plusieurs variations de Lorem Ipsum peuvent être trouvées ici ou là, mais la majeure partie d'entre elles a été altérée par l'addition d'humour ou de mots aléatoires qui ne ressemblent pas une seconde à du texte standard. Si vous voulez utiliser un passage du Lorem Ipsum, vous devez être sûr qu'il n'y a rien d'embarrassant caché dans le texte.");
+//                    congres.setEncadrantProf("Ana ana");
+//                    congresAdminService.save(congres);
+//
+//                    ProduitBio produitBio = new ProduitBio(null, "Lantilles " + i1, i1 >= 7, true, true, null,  "L'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux. Les sections 1.10.32 et 1.10.33 du De Finibus Bonorum et Malorum", null, (int)(Math.random() * 1500),  (int)(Math.random() * 5000), null);
+//                    produitBioAdminService.save(produitBio);
+//
 
                 }
-
-
-            }
         };
     }
 }

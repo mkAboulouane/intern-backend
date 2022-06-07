@@ -17,7 +17,9 @@ public interface ProduitBioAdminService {
     ProduitBio save(ProduitBio produitBio);
 
 
-    ProduitBio save(ProduitBio produitBio, String image);
+
+
+    int save(ProduitBio produitBio, long id);
 
     ProduitBio update(ProduitBio produitBio);
 

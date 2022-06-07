@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ImageAdminService {
 
-    String save(Image image);
-
+    long save(Image image);
+    
     int save(Image[] images);
 
     int update(Image image);
@@ -18,8 +18,6 @@ public interface ImageAdminService {
 
     List<Image> findAll();
 
-//    byte[] compressBytes(byte[] data);
-//
-//    byte[] decompressBytes(byte[] data)
+    Image findById(long id);
 
 }

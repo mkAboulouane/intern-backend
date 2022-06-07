@@ -2,6 +2,8 @@ package com.fst.sir.service.admin.impl;
 
 import com.fst.sir.bean.Image;
 import com.fst.sir.bean.ProduitBio;
+import com.fst.sir.config.FileUtils;
+import com.fst.sir.dao.ImageDao;
 import com.fst.sir.dao.ProduitBioDao;
 import com.fst.sir.service.admin.facade.ImageAdminService;
 import com.fst.sir.service.admin.facade.ProduitBioAdminService;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,28 +32,34 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
     }
 
     @Override
-    public ProduitBio save(ProduitBio produitBio, String imageName) {
-        Image image1 = imageAdminService.findByName(imageName);
-        if(image1 == null) return null;
+    public int save(ProduitBio produitBio, long id) {
+        Image image = imageAdminService.findById(id);
+        ProduitBio foundByName = findByNom(produitBio.getNom());
+         if(foundByName != null) return -1;
+        else if(image == null) return -2;
         else {
-            produitBio.setImagePrincipal(image1);
+            produitBio.setImagePrincipal(image);
             produitBio.setAddedAt(new Date());
-            return produitBioDao.save(produitBio);
+            produitBioDao.save(produitBio);
+            return 1;
         }
     }
 
+
+
     @Override
     public ProduitBio save(ProduitBio produitBio) {
-        ProduitBio produitBio1 = findByNom(produitBio.getNom());
-        if (produitBio1 == null) {
-//            if(produitBio.getImagePrincipal()!=null){
-//                produitBio.setImagePrincipal(imageRestAdmin.save(produitBio.getImagePrincipal()));
-//                produitBio.getImages().forEach(e->imageAdminService.save(e));
-//            }
-
+        ProduitBio foundedByNom = findByNom(produitBio.getNom());
+        Image image = imageAdminService.findByName(produitBio.getImagePrincipal().getName());
+        if (foundedByNom != null || image != null ) {
+            return null;
+        }else {
+            long id = imageAdminService.save(produitBio.getImagePrincipal());
+            Image foundedById = imageAdminService.findById(id);
             produitBio.setAddedAt(new Date());
+            produitBio.setImagePrincipal(foundedById);
             return produitBioDao.save(produitBio);
-        } else return null;
+        }
     }
 
 
@@ -61,7 +70,14 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
 
     @Override
     public List<ProduitBio> findAll() {
-        return produitBioDao.findAll();
+        List<ProduitBio> getAll = produitBioDao.findAll();
+        List<ProduitBio> clone = getAll;
+        List<ProduitBio> result = new ArrayList<>();
+        clone.forEach(e->{
+            e.getImagePrincipal().setPicByte(FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()));
+            result.add(e);
+        });
+        return result;
     }
 
     @Override

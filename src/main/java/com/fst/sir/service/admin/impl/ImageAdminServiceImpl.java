@@ -1,10 +1,12 @@
 package com.fst.sir.service.admin.impl;
 
 import com.fst.sir.bean.Image;
+import com.fst.sir.config.FileUtils;
 import com.fst.sir.dao.ImageDao;
 import com.fst.sir.service.admin.facade.ImageAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,6 +22,11 @@ public class ImageAdminServiceImpl implements ImageAdminService {
     private ImageDao imageDao;
 
     @Override
+    public Image findById(long id) {
+        return imageDao.findById(id).get();
+    }
+
+    @Override
     public int save(Image[] images) {
         Arrays.stream(images).forEach(this::save);
         return 1;
@@ -30,50 +37,17 @@ public class ImageAdminServiceImpl implements ImageAdminService {
         return imageDao.findAll();
     }
 
-//    @Override
-//    public static byte[] decompressBytes(byte[] data) {
-//        Inflater inflater = new Inflater();
-//        inflater.setInput(data);
-//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-//        byte[] buffer = new byte[1024];
-//        try {
-//            while (!inflater.finished()) {
-//                int count = inflater.inflate(buffer);
-//                outputStream.write(buffer, 0, count);
-//            }
-//            outputStream.close();
-//        } catch (IOException | DataFormatException ioe) {
-//        }
-//        return outputStream.toByteArray();
-//    }
-//
-//    @Override
-//    public  byte[] compressBytes(byte[] data) {
-//        Deflater deflater = new Deflater();
-//        deflater.setInput(data);
-//        deflater.finish();
-//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-//        byte[] buffer = new byte[1024];
-//        while (!deflater.finished()) {
-//            int count = deflater.deflate(buffer);
-//            outputStream.write(buffer, 0, count);
-//        }
-//        try {
-//            outputStream.close();
-//        } catch (IOException e) {
-//        }
-//        System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
-//        return outputStream.toByteArray();
-//    }
-
     @Override
-    public String save(Image image) {
-        if (findByName(image.getName()) != null) return "ce nom deja existe";
+    public long  save(Image image) {
+        if (findByName(image.getName()) != null) return -1;
         else {
-           Image entity = imageDao.save(image);
-            return entity.getName();
+            image.setPicByte(FileUtils.compressBytes(image.getPicByte()));
+            Image entity = imageDao.save(image);
+            return entity.getId();
         }
     }
+
+
 
     @Override
     public int update(Image image) {
@@ -81,12 +55,19 @@ public class ImageAdminServiceImpl implements ImageAdminService {
     }
 
     @Override
+    @Transactional
     public int delete(Long id) {
-        return 0;
+        if(id != null)
+         imageDao.deleteById(id);
+
+        return 1;
     }
 
     @Override
     public Image findByName(String name) {
-        return imageDao.findByName(name);
+        Image byName = imageDao.findByName(name);
+//        byName.setPicByte( FileUtils.decompressBytes(byName.getPicByte()));
+        return byName;
+
     }
 }

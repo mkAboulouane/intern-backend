@@ -19,9 +19,11 @@ public class ProduitBioRestAdmin {
         return produitBioAdminService.findById(id);
     }
 
-    @PostMapping("/save/{image}")
-    public ProduitBio save(@RequestBody ProduitBio produitBio,@PathVariable String image) {
-        return produitBioAdminService.save(produitBio, image);
+    @PostMapping("/save/")
+    public int save(@RequestBody ProduitBio produitBio) {
+        long id = produitBio.getId();
+        produitBio.setId(null);
+        return produitBioAdminService.save(produitBio,id);
     }
 
     @GetMapping("/")
@@ -39,10 +41,10 @@ public class ProduitBioRestAdmin {
         return produitBioAdminService.deleteByNom(nom);
     }
 
-    @PostMapping("/")
-    public ProduitBio save(@RequestBody ProduitBio produitBio) {
-        return produitBioAdminService.save(produitBio);
-    }
+//    @PostMapping("/")
+//    public ProduitBio save(@RequestBody ProduitBio produitBio) {
+//        return produitBioAdminService.save(produitBio);
+//    }
 
     @PutMapping("/")
     public ProduitBio update(@RequestBody ProduitBio produitBio) {

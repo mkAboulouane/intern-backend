@@ -3,6 +3,7 @@ package com.fst.sir.bean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -41,9 +42,6 @@ public class ProduitBio {
 
     @OneToOne
     private Image imagePrincipal;
-
-    @OneToMany(mappedBy = "produitBio",fetch = FetchType.EAGER)
-    private List<Image> images;
 
     public ProduitBio(Long id, String nom, boolean promotion, boolean visible, boolean available, Date addedAt,String description, String photos, double prix, double prixAncien, Date updatedAt) {
         this.id = id;

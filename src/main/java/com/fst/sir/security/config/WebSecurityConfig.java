@@ -56,6 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/admin/formation/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
         http.authorizeRequests().antMatchers("/admin/congres/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
+
+
+        http.authorizeRequests().antMatchers("/admin/produit-bio/").permitAll(); // temporaly
         http.authorizeRequests().antMatchers("/admin/produit-bio/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
 
 

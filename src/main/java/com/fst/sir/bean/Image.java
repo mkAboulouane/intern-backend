@@ -18,13 +18,19 @@ public class Image {
     @Lob
     private byte[] picByte;
 
-    @ManyToOne
-    private ProduitBio produitBio;
+
 
     public Image() {
     }
 
     public Image(String name, String type, byte[] picByte) {
+        this.name = name;
+        this.type = type;
+        this.picByte = picByte;
+    }
+
+    public Image(Long id, String name, String type, byte[] picByte) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.picByte = picByte;
@@ -62,11 +68,4 @@ public class Image {
         this.picByte = picByte;
     }
 
-    public ProduitBio getProduitBio() {
-        return produitBio;
-    }
-
-    public void setProduitBio(ProduitBio produitBio) {
-        this.produitBio = produitBio;
-    }
 }
