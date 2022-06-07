@@ -87,7 +87,7 @@ public class NotificationClientServiceImpl implements NotificationClientService 
     public int save(Notification notification) {
         User user = userService.findById(notification.getUser().getId());
         if (user == null) return -1;
-        else
+        else{
             Notification entity = prepare(user, notification.getMessage(), notification.getStatus());
             notificationDao.save(entity);
             return 1;
