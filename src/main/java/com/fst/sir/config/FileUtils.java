@@ -8,7 +8,6 @@ import java.util.zip.Inflater;
 
 public class FileUtils {
 
-    // uncompress the image bytes before returning it to the angular application
     public static byte[] decompressBytes(byte[] data) {
         Inflater inflater = new Inflater();
         inflater.setInput(data);

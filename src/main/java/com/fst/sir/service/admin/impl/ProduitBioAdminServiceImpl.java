@@ -35,7 +35,10 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
     public int save(ProduitBio produitBio, long id) {
         Image image = imageAdminService.findById(id);
         ProduitBio foundByName = findByNom(produitBio.getNom());
-         if(foundByName != null) return -1;
+         if(foundByName != null) {
+             imageAdminService.delete(id);
+             return -1;
+         }
         else if(image == null) return -2;
         else {
             produitBio.setImagePrincipal(image);
@@ -71,14 +74,23 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
     @Override
     public List<ProduitBio> findAll() {
         List<ProduitBio> getAll = produitBioDao.findAll();
-        List<ProduitBio> clone = getAll;
         List<ProduitBio> result = new ArrayList<>();
-        clone.forEach(e->{
-            e.getImagePrincipal().setPicByte(FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()));
-            result.add(e);
+        getAll.forEach(e -> {
+            result.add(new ProduitBio(e.getId(),e.getNom(),e.isPromotion(),e.isVisible(),e.getQuantity(),e.isAvailable(),e.getAddedAt(),e.getDescription(),e.getPhotos(),e.getPrix(),e.getPrixAncien(),e.getUpdatedAt(),new Image(e.getImagePrincipal().getId(),e.getImagePrincipal().getName(),e.getImagePrincipal().getType(),FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()))));
         });
         return result;
     }
+//    }    @Override
+//    public List<ProduitBio> findAll() {
+//        List<ProduitBio> getAll = produitBioDao.findAll();
+//        List<ProduitBio> clone = getAll;
+//        List<ProduitBio> result = new ArrayList<>();
+//        clone.forEach(e->{
+//            e.getImagePrincipal().setPicByte(FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()));
+//            result.add(e);
+//        });
+//        return result;
+//    }
 
     @Override
     public int deleteByNom(String nom) {
