@@ -13,6 +13,7 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+   // @Transient	
     private String reference;
 
     // important,not,alert,....

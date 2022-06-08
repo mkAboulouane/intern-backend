@@ -87,7 +87,7 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
 //        clone.forEach(e->{
 //            e.getImagePrincipal().setPicByte(FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()));
 //            result.add(e);
-//        });
+//        });ate
 //        return result;
 //    }
 

@@ -2,9 +2,40 @@ package com.fst.sir.service.util;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateUtil {
+
+    public static Date parseDateCampagne(String date) {
+        if (date == null || date.isEmpty()) {
+            return null;
+        } else {
+            try {
+
+                //  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+                if(date.contains("T")) {
+                    String date1 = Instant.parse(date )
+                            .atOffset( ZoneOffset.UTC )
+                            .format(
+                                    DateTimeFormatter.ofPattern( "dd/MM/yyyy HH:mm" )
+                            ) ;
+                    return simpleDateFormat.parse(date1);
+                }
+                Date date1=simpleDateFormat.parse(date);
+
+                return simpleDateFormat.parse(date);
+            } catch (Exception ex) {
+                return null;
+            }
+        }
+    }
+
     public static String formateDate(Date date) {
         return formateDate("yyyy-MM-dd hh:mm:ss.SSS", date);
     }
