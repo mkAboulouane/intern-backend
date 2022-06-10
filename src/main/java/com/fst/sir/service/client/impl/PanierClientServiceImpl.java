@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -77,11 +78,11 @@ public class PanierClientServiceImpl implements PanierClientService {
                 total.updateAndGet(v -> v + formation.getPrix());
             }
             panier.setDateAjout(new Date());
-            panier.setPrixTotal(total.get());
+            panier.setPrixTotal(BigDecimal.valueOf(total.get()));
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
             if (!panier.getProduitPanierItems().isEmpty()) {
                 total.updateAndGet(v-> v +produitPanierItemService.prixTotal(panier.getProduitPanierItems()));
-                panier.setPrixTotal(total.get());
+                panier.setPrixTotal(BigDecimal.valueOf(total.get()));
                 Panier entity = panierDao.save(panier);
                 produitPanierItemService.save(panier.getProduitPanierItems(), entity);
                 return entity;
@@ -107,12 +108,13 @@ public class PanierClientServiceImpl implements PanierClientService {
             }
             panier.setDateAjout(new Date());
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
-            panier.setPrixTotal(formation.getPrix());
+            panier.setPrixTotal(BigDecimal.valueOf(formation.getPrix()));
             Panier panier1 = panierDao.save(panier);
             if (panier.getProduitPanierItems() != null) {
                 List<ProduitPanierItem> produitPanierItemList = new ArrayList<>();
                 panier.getProduitPanierItems().forEach(e -> produitPanierItemList.add(produitPanierItemService.save(e)));
-                produitPanierItemList.forEach(e -> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
+                produitPanierItemList.forEach(e -> panier1.setPrixTotal(e.getPrix().add(panier1.getPrixTotal())));
+//                produitPanierItemList.forEach(e -> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
 //                produitPanierItemList.forEach(e -> panier1.setPrixTotal(e.getPrix() + panier1.getPrixTotal()));
                 return panier1;
             }

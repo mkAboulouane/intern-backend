@@ -10,6 +10,7 @@ import com.fst.sir.service.client.facade.ProduitPanierItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,10 +63,8 @@ public class ProduitPanierItemServiceImpl implements ProduitPanierItemService {
     @Override
     public ProduitPanierItem save(ProduitPanierItem produitPanierItem) {
         ProduitBio produitBio = produitBioAdminService.findByNom(produitPanierItem.getProduitBio().getNom());
-//        Panier panier = panierAdminService.findByReference(produitPanierItem.getPanier().getReference());
-        produitPanierItem.setPrix(produitBio.getPrix() * produitPanierItem.getQuantite());
+        produitPanierItem.setPrix(BigDecimal.valueOf(produitBio.getPrix()).multiply(BigDecimal.valueOf(produitPanierItem.getQuantite())));
         produitPanierItem.setProduitBio(produitBio);
-//        produitPanierItem.setPanier(panier);
         return produitPanierItemDao.save(produitPanierItem);
     }
 

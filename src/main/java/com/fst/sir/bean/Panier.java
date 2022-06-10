@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class Panier {
 
     private String phone;
 
-    private double prixTotal;
+    private BigDecimal prixTotal;
 
     @Enumerated(EnumType.STRING)
     private EtatCommande etatCommande;

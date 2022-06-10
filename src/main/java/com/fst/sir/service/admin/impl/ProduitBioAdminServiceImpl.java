@@ -27,7 +27,9 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
 
     @Override
     public ProduitBio findById(Long id) {
-        return produitBioDao.findById(id).get();
+        ProduitBio produit = produitBioDao.findById(id).get();
+        produit.getImagePrincipal().setPicByte(FileUtils.decompressBytes(produit.getImagePrincipal().getPicByte()));
+        return produit;
     }
 
     @Override

@@ -12,6 +12,7 @@ import com.fst.sir.service.client.facade.ProduitPanierItemService;
 import com.fst.sir.service.gerant.service.facade.PanierGerantService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,7 +65,7 @@ public class PanierGerantServiceImpl implements PanierGerantService {
             }
             panier.setDateAjout(new Date());
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
-            panier.setPrixTotal(formation.getPrix());
+            panier.setPrixTotal(BigDecimal.valueOf(formation.getPrix()));
             Panier panier1 = panierDao.save(panier);
             if (panier.getProduitPanierItems() != null) {
                 List<ProduitPanierItem> produitPanierItemList = new ArrayList<>();
@@ -91,7 +92,7 @@ public class PanierGerantServiceImpl implements PanierGerantService {
             }
             panier.setDateAjout(new Date());
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
-            panier.setPrixTotal(formation.getPrix());
+            panier.setPrixTotal(BigDecimal.valueOf(formation.getPrix()));
             Panier panier1 = panierDao.save(panier);
             if (panier.getProduitPanierItems() != null) {
                 List<ProduitPanierItem> produitPanierItemList = new ArrayList<>();

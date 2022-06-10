@@ -8,6 +8,7 @@ import com.fst.sir.service.admin.facade.PanierAdminService;
 import com.fst.sir.service.gerant.service.facade.PiamentGerantService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -45,9 +46,9 @@ public class PiamentGerantServiceImpl implements PiamentGerantService {
     @Override
     public Paiment save(Paiment paiment) {
         Panier panier = panierAdminService.findByReference(paiment.getReference());
-        if (paiment.getPrix() == panier.getPrixTotal()) {
+        if (BigDecimal.valueOf(paiment.getPrix()).equals(panier.getPrixTotal())) {
             paiment.setPayedAt(new Date());
-            paiment.setPrix(panier.getPrixTotal());
+            paiment.setPrix(panier.getPrixTotal().doubleValue());
             return paimentDao.save(paiment);
         } else return null;
     }

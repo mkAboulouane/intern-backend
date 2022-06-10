@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -49,9 +50,9 @@ public class PaimentAdminServiceImpl implements PaimentAdminService {
     @Override
     public Paiment save(Paiment paiment) {
         Panier panier = panierAdminService.findByReference(paiment.getReference());
-        if (paiment.getPrix() == panier.getPrixTotal()) {
+        if (BigDecimal.valueOf(paiment.getPrix()).equals(panier.getPrixTotal())) {
             paiment.setPayedAt(new Date());
-            paiment.setPrix(panier.getPrixTotal());
+            paiment.setPrix(panier.getPrixTotal().doubleValue());
             return paimentDao.save(paiment);
         } else return null;
     }
@@ -60,10 +61,10 @@ public class PaimentAdminServiceImpl implements PaimentAdminService {
     public Paiment update(Paiment paiment) {
         Paiment paiment1 = findByReference(paiment.getReference());
         Panier panier = panierAdminService.findByReference(paiment.getReference());
-        if (paiment1 != null && paiment.getPrix() == panier.getPrixTotal()) {
+        if (paiment1 != null && BigDecimal.valueOf(paiment.getPrix()).equals(panier.getPrixTotal())) {
             paiment.setId(paiment1.getId());
             paiment.setPayedAt(new Date());
-            paiment.setPrix(panier.getPrixTotal());
+            paiment.setPrix(panier.getPrixTotal().doubleValue());
             return paimentDao.save(paiment);
         } else return null;
 

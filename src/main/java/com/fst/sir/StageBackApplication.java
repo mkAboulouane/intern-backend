@@ -34,7 +34,7 @@ public class StageBackApplication {
     CommandLineRunner start(UserService userService, RoleService roleService, FormationAdminService formationAdminService, CongresAdminService congresAdminService, ProduitBioAdminService produitBioAdminService) {
         return args -> {
 
-            if (true) {
+            if (false) {
                 int i = 20;
                 User userAdmin = new User("admin", "admin", "admin", "admin");
                 userService.saveAdmin(userAdmin);
@@ -42,8 +42,13 @@ public class StageBackApplication {
                 User userGerant = new User("gerant", "gerant", "gerant", "gerant");
                 userService.saveAGENT(userGerant);
 
-                User userClient = new User("client", "client", "client", "client");
-                userService.save(userClient);
+                int k=5;
+                for (int i1 = 0; i1 < k; i1++) {
+                    userService.save( new User("client"+i1, "client"+i1, "client"+i1, "client"+i1));
+                }
+
+
+
 
 //                for (int i1 = 0; i1 < i; i1++) {
 //                    Formation formation = new Formation((int) (Math.random() * 2000), i1 * 3);
