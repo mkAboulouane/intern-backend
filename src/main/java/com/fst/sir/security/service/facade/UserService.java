@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
+
     String getUserRole(String username);
 
     List<User> findAll();
@@ -30,7 +31,6 @@ public interface UserService extends UserDetailsService {
     User getCurrentUser();
 
 
-//    User savePure(User user);
 
     /*  Admin  */
     User saveAdmin(User user);
@@ -46,6 +46,6 @@ public interface UserService extends UserDetailsService {
 
     int deleteByUsername(String username);
 
-    public UserDetails loadUserByUsername(String username);
+    UserDetails loadUserByUsername(String username);
 
 }
