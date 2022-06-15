@@ -23,6 +23,8 @@ public class SecurityUtil {
 
         UserService userService = StageBackApplication.getCtx().getBean(UserService.class);
 
+//        User user = (User)authentication.getPrincipal();
+
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Object user = securityContext.getAuthentication().getPrincipal();
         System.out.println(user);

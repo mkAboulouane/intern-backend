@@ -29,12 +29,12 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
         List<ProduitBio> all = produitBioDao.findAll();
         List<ProduitBio> result = new ArrayList<>();
         AtomicInteger count = new AtomicInteger(0);
-        all.stream().filter(e-> Objects.equals(e.getId(), existId) && count.get() <= 3).forEach(e->{
-//            result.add(e);
-            result.add(new ProduitBio(e.getId(),e.getNom(),e.isPromotion(),e.isVisible(),e.getQuantity(),e.isAvailable(),e.getAddedAt(),e.getDescription(),e.getPhotos(),e.getPrix(),e.getPrixAncien(),e.getUpdatedAt(),new Image(e.getImagePrincipal().getId(),e.getImagePrincipal().getName(),e.getImagePrincipal().getType(),FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()))));
+        all.stream().filter(e-> !Objects.equals(e.getId(), existId) && count.get() <= 3).forEach(e->{
+            result.add(findById(e.getId()));
             count.addAndGet(1);
         });
         return result;
+
     }
 
 
@@ -89,9 +89,9 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
     public List<ProduitBio> findAll() {
         List<ProduitBio> getAll = produitBioDao.findAll();
         List<ProduitBio> result = new ArrayList<>();
-        getAll.forEach(e -> {
-            result.add(new ProduitBio(e.getId(),e.getNom(),e.isPromotion(),e.isVisible(),e.getQuantity(),e.isAvailable(),e.getAddedAt(),e.getDescription(),e.getPhotos(),e.getPrix(),e.getPrixAncien(),e.getUpdatedAt(),new Image(e.getImagePrincipal().getId(),e.getImagePrincipal().getName(),e.getImagePrincipal().getType(),FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()))));
-        });
+        getAll.stream().filter(Objects::nonNull).forEach(e ->
+            result.add(new ProduitBio(e.getId(),e.getNom(),e.isPromotion(),e.isVisible(),e.isAvailable(),e.getAddedAt(),e.getDescription(),e.getPhotos(),e.getPrix(),e.getPrixAncien(),e.getUpdatedAt(),new Image(e.getImagePrincipal().getId(),e.getImagePrincipal().getName(),e.getImagePrincipal().getType(),FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()))))
+        );
         return result;
     }
     @Override
