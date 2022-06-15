@@ -24,21 +24,18 @@ public class UserRestAnonymous {
     }
 
 
-//    @GetMapping("/hello")
-//    public String hello(@CurrentSecurityContext(expression="authentication?.name")
-//                        String username) {
-//        return "Hello, " + username + "!";
-//    }
+    @GetMapping("/hello")
+    public String hello(@CurrentSecurityContext(expression="authentication?.name")
+                        String username) {
+        return "Hello, " + username + "!";
+    }
 
     @GetMapping("/online")
     public User getCurrentUser() {
-//        return userService.getCurrentUser();
-//    return SecurityUtil.getCurrentUser();
         User user = new User();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             String name = auth.getName();
-//            user.setName(name);
         }
         return user;
 

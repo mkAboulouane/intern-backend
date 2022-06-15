@@ -40,8 +40,6 @@ public class UserServiceImpl implements UserService {
     public User getCurrentUser() {
         User user = securityUtil.getCurrentUser();
         return user;
-//        User user = userDao.findByUsername(username);
-//        return user;
     }
 
 
