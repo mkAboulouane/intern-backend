@@ -62,13 +62,6 @@ public class User implements UserDetails {
         super();
     }
 
-    public User(String username) {
-        this.username = username;
-        this.password = username;
-        this.prenom = username;
-        this.nom = username;
-        this.email = username;
-    }
 
     public boolean getCredentialsNonExpired() {
         return credentialsNonExpired;

@@ -13,6 +13,10 @@ public class ProduitBioRestAdmin {
     @Autowired
     private ProduitBioAdminService produitBioAdminService;
 
+    @GetMapping("/voir-aussi/{existId}")
+    public List<ProduitBio> voirAussi(@PathVariable Long existId) {
+        return produitBioAdminService.voirAussi(existId);
+    }
 
     @GetMapping("/id/{id}")
     public ProduitBio findById(@PathVariable Long id) {

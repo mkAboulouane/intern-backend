@@ -8,6 +8,8 @@ public interface ProduitBioAdminService {
 
     List<ProduitBio> findAll();
 
+    List<ProduitBio> voirAussi(Long existId);
+
     ProduitBio findByNom(String nom);
 
     ProduitBio findById(Long id);

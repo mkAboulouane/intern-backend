@@ -3,11 +3,9 @@ package com.fst.sir.service.admin.impl;
 import com.fst.sir.bean.Image;
 import com.fst.sir.bean.ProduitBio;
 import com.fst.sir.config.FileUtils;
-import com.fst.sir.dao.ImageDao;
 import com.fst.sir.dao.ProduitBioDao;
 import com.fst.sir.service.admin.facade.ImageAdminService;
 import com.fst.sir.service.admin.facade.ProduitBioAdminService;
-import com.fst.sir.ws.rest.provided.facade.admin.ImageRestAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
@@ -23,6 +23,19 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
     private ProduitBioDao produitBioDao;
     @Autowired
     private ImageAdminService imageAdminService;
+
+    @Override
+    public List<ProduitBio> voirAussi(Long existId) {
+        List<ProduitBio> all = produitBioDao.findAll();
+        List<ProduitBio> result = new ArrayList<>();
+        AtomicInteger count = new AtomicInteger(0);
+        all.stream().filter(e-> Objects.equals(e.getId(), existId) && count.get() <= 3).forEach(e->{
+//            result.add(e);
+            result.add(new ProduitBio(e.getId(),e.getNom(),e.isPromotion(),e.isVisible(),e.getQuantity(),e.isAvailable(),e.getAddedAt(),e.getDescription(),e.getPhotos(),e.getPrix(),e.getPrixAncien(),e.getUpdatedAt(),new Image(e.getImagePrincipal().getId(),e.getImagePrincipal().getName(),e.getImagePrincipal().getType(),FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()))));
+            count.addAndGet(1);
+        });
+        return result;
+    }
 
 
     @Override
@@ -81,18 +94,6 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
         });
         return result;
     }
-//    }    @Override
-//    public List<ProduitBio> findAll() {
-//        List<ProduitBio> getAll = produitBioDao.findAll();
-//        List<ProduitBio> clone = getAll;
-//        List<ProduitBio> result = new ArrayList<>();
-//        clone.forEach(e->{
-//            e.getImagePrincipal().setPicByte(FileUtils.decompressBytes(e.getImagePrincipal().getPicByte()));
-//            result.add(e);
-//        });ate
-//        return result;
-//    }
-
     @Override
     @Transactional
     public int deleteById(Long id) {

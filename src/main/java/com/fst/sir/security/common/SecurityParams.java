@@ -7,6 +7,4 @@ public interface SecurityParams {
 
      static final String HEADER_PREFIX = "Bearer ";
 
-//    public static final String HEADER_PREFIX="";
-
 }

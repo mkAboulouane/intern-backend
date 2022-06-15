@@ -32,11 +32,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     PasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private SecurityUtil securityUtil;
+
 
     @Override
     public User getCurrentUser() {
-        return SecurityUtil.getCurrentUser();
+        User user = securityUtil.getCurrentUser();
+        return user;
+//        User user = userDao.findByUsername(username);
+//        return user;
     }
+
+
 
     @Override
     public List<User> findByAuthorities() {
@@ -152,7 +160,7 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         if (username == null)
             return null;
-        return userDao.findByUsername(username);
+        else return userDao.findByUsername(username);
     }
 
     @Override

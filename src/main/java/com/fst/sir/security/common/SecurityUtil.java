@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 
 @Service
 public class SecurityUtil {
+
 
     public static User getCurrentUser() {
 
@@ -32,11 +34,7 @@ public class SecurityUtil {
         } else {
             return null;
         }
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//       String username = (String) auth.getName();
-//        UserService userService = StageBackApplication.getCtx().getBean(UserService.class);
-//        User user = userService.findByUsername(username);
-//       return user;
+
     }
 
 

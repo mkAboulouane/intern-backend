@@ -11,6 +11,12 @@ import java.util.List;
 @RestController
 // @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
 public class UserRest {
+
+    @GetMapping("/current-user/")
+    public User getCurrentUser() {
+        return userService.getCurrentUser();
+    }
+
     @Autowired
     private UserService userService;
 
