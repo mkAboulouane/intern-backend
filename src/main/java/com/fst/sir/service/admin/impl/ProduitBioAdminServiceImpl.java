@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -26,16 +23,46 @@ public class ProduitBioAdminServiceImpl implements ProduitBioAdminService {
 
     @Override
     public List<ProduitBio> voirAussi(Long existId) {
-        List<ProduitBio> all = produitBioDao.findAll();
+        Random rand = new Random();
+        List<Long> allId = produitBioDao.getAllId();
         List<ProduitBio> result = new ArrayList<>();
-        AtomicInteger count = new AtomicInteger(0);
-        all.stream().filter(e-> !Objects.equals(e.getId(), existId) && count.get() <= 3).forEach(e->{
-            result.add(findById(e.getId()));
-            count.addAndGet(1);
-        });
+        allId.remove(existId);
+
+        int nmbreElement = 4;
+
+        for (int i = 0; i < nmbreElement; i++) {
+            int randomIndex = rand.nextInt(allId.size());
+            Long id = allId.get(randomIndex);
+            result.add(findById(id));
+            allId.remove(randomIndex);
+        }
         return result;
 
+
+
+   /*     List<Long> allId = produitBioDao.getAllId();
+        List<ProduitBio> result = new ArrayList<>();
+        AtomicInteger count = new AtomicInteger(0);
+
+        allId.stream().filter(e-> !Objects.equals(e, existId) && count.get() <= 3).forEach(e->{
+            int i = (int) (Math.random() * allId.size());
+            if(allId.contains(allId.get(i)) && i != existId) {
+                result.add(findById(allId.get(i)));
+                count.addAndGet(1);
+            }
+        });*/
+
+ /*       List<ProduitBio> all = produitBioDao.findAll();
+        List<ProduitBio> result = new ArrayList<>();
+        AtomicInteger count = new AtomicInteger(0);
+      all.stream().filter(e-> !Objects.equals(e.getId(), existId) && count.get() <= 3).forEach(e->{
+            result.add(findById(e.getId()));
+            count.addAndGet(1);
+        });*/
     }
+
+
+
 
 
     @Override

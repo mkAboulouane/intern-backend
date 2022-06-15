@@ -13,6 +13,12 @@ public interface ProduitBioDao extends JpaRepository<ProduitBio, Long> {
     @Query("SELECT item FROM ProduitBio item ORDER BY item.id DESC ")
     List<ProduitBio> findAll();
 
+
+    @Query("SELECT item.id FROM ProduitBio item")
+    List<Long> getAllId();
+
+
+
     ProduitBio findByNom(String nom);
 
     void deleteById(Long id);
