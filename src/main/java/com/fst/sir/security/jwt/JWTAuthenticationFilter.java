@@ -38,7 +38,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             System.out.println(myUser.getUsername());
             System.out.println(myUser.getPassword());
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(myUser.getUsername(),myUser.getPassword()));
-//            return authenticationManager.authenticate(new Use1);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -66,11 +65,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String jwt = JWT.create()
                 .withIssuer(request.getRequestURI())
                 .withSubject(user.getUsername())
-                .withSubject(user.getPrenom())
-                .withSubject(user.getNom())
+//                .withSubject(user.getEmail())
+//                .withSubject(user.getNom())
                 .withArrayClaim("roles", roles.toArray(new String[roles.size()]))
                 .withExpiresAt(new Date(System.currentTimeMillis() + SecurityParams.EXPIRATION))
                 .withClaim("passwordChanged", passwordChanged)
+//                .withClaim("username", user.getUsername())
+
                 .sign(Algorithm.HMAC256(SecurityParams.SECRET));
         response.addHeader(SecurityParams.JWT_HEADER_NAME, SecurityParams.HEADER_PREFIX + jwt);
         System.out.println(jwt);

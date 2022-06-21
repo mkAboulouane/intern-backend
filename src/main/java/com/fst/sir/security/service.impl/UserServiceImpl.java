@@ -61,6 +61,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getUserRole(String username) {
         User user = findByUsername(username);
+        if (user == null) {
+            user = userDao.findByEmail(username);
+        }
         List<String> list = new ArrayList<>();
         user.getRoles().forEach(e -> list.add(e.getAuthority()));
         String result = list.get(0);
@@ -130,9 +133,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private static void savePic(User user) {
-        user.setImage(user.getImage());
-    }
+//    private static void savePic(User user) {
+//        user.setImage(user.getImage());
+//    }
 
 
     @Override
@@ -163,9 +166,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsernameWithRoles(String username) {
-        if (username == null)
-            return null;
-        return userDao.findByUsername(username);
+        if (username == null) return null;
+        User user = userDao.findByUsername(username);
+        if (user == null) {
+            return userDao.findByEmail(username);
+        }else return user;
     }
 
     @Override
@@ -178,7 +183,8 @@ public class UserServiceImpl implements UserService {
     public User findById(Long id) {
         if (id == null)
             return null;
-        return userDao.getOne(id);
+        else
+        return userDao.findById(id).get();
     }
 
     @Transactional
@@ -223,7 +229,7 @@ public class UserServiceImpl implements UserService {
             foundedUser.setAccountNonExpired(user.isAccountNonExpired());
             foundedUser.setAuthorities(new ArrayList<>());
             Collection<Role> roles = new ArrayList<Role>();
-            savePic(foundedUser);
+//            savePic(foundedUser);
             for (Role role : user.getRoles()) {
                 roles.add(roleService.save(role));
             }

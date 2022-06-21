@@ -60,10 +60,9 @@ public class NotificationClientServiceImpl implements NotificationClientService 
     }
 
     private Notification prepare(User user, String message, String status) {
-        Notification notification = new Notification(
+        return new Notification(
                 status, false, message, new Date(), user
         );
-        return notification;
     }
 
 

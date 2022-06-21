@@ -63,15 +63,12 @@ public class PanierClientServiceImpl implements PanierClientService {
 
     @Override
     public Panier save(Panier panier) {
-//        User user = SecurityUtil.getCurrentUser();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User usr = (User) auth.getPrincipal();
-        User user = userService.findByUsername(panier.getUser().getUsername());
+        User user = SecurityUtil.getCurrentUser();
         if (user == null) {
             return null;
         } else {
-            AtomicReference<Double> total= new AtomicReference<>(0D);
             panier.setUser(user);
+            AtomicReference<Double> total= new AtomicReference<>(0D);
             if (panier.getFormation() != null && panier.getFormation().getNom()!=null ) {
                 Formation formation = formationAdminService.findByNom(panier.getFormation().getNom());
                 panier.setFormation(formation);
@@ -80,14 +77,15 @@ public class PanierClientServiceImpl implements PanierClientService {
             panier.setDateAjout(new Date());
             panier.setPrixTotal(BigDecimal.valueOf(total.get()));
             panier.setEtatCommande(EtatCommande.EN_TRAITMENT);
-            if (!panier.getProduitPanierItems().isEmpty()) {
-                total.updateAndGet(v-> v +produitPanierItemService.prixTotal(panier.getProduitPanierItems()));
+
+            if (panier.getProduitPanierItems().get(1).getProduitBio()==null) {
+                Panier entity = panierDao.save(panier);
+                return entity;
+            }else {
+                total.updateAndGet(v -> v + produitPanierItemService.prixTotal(panier.getProduitPanierItems()));
                 panier.setPrixTotal(BigDecimal.valueOf(total.get()));
                 Panier entity = panierDao.save(panier);
                 produitPanierItemService.save(panier.getProduitPanierItems(), entity);
-                return entity;
-            }else {
-                Panier entity = panierDao.save(panier);
                 return entity;
             }
         }

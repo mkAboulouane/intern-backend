@@ -46,25 +46,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/register").permitAll();
         // temporally
-//                http.authorizeRequests().antMatchers("/admin/**").permitAll();
+        http.authorizeRequests().antMatchers("/admin/**").permitAll();
+        http.authorizeRequests().antMatchers("/app/**").permitAll();
+
 
         // get
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/admin/formation/").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/admin/congres/").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/admin/**").permitAll();
+//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/admin/formation/").permitAll();
+//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/admin/congres/").permitAll();
+//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/admin/**").permitAll();
 //        http.authorizeRequests().antMatchers(HttpMethod.GET, "/admin/produit-bio/**").permitAll();
-        http.authorizeRequests().antMatchers("/admin/current-user/").authenticated(); // temporaly
-        http.authorizeRequests().antMatchers("/admin/formation/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
-        http.authorizeRequests().antMatchers("/admin/congres/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
+//        http.authorizeRequests().antMatchers("/admin/**").permitAll();
+
+//        http.authorizeRequests().antMatchers("/admin/current-user/").authenticated(); // temporaly
+//        http.authorizeRequests().antMatchers("/admin/formation/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
+//        http.authorizeRequests().antMatchers("/admin/congres/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
 
 
-        http.authorizeRequests().antMatchers("/admin/produit-bio/").permitAll(); // temporaly
-        http.authorizeRequests().antMatchers("/admin/produit-bio/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
+//        http.authorizeRequests().antMatchers("/admin/produit-bio/").permitAll(); // temporaly
+//        http.authorizeRequests().antMatchers("/admin/produit-bio/").hasAnyAuthority(AuthoritiesConstants.ADMIN,AuthoritiesConstants.AGENT);
 
 
-        http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
-        http.authorizeRequests().antMatchers("/gerant/**").hasAnyAuthority(AuthoritiesConstants.AGENT);
-        http.authorizeRequests().antMatchers("/app/**").hasAnyAuthority(AuthoritiesConstants.CLIENT);
+//        http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN);
+//        http.authorizeRequests().antMatchers("/gerant/**").hasAnyAuthority(AuthoritiesConstants.AGENT);
+//        http.authorizeRequests().antMatchers("/app/**").hasAnyAuthority(AuthoritiesConstants.CLIENT);
 
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
