@@ -7,6 +7,7 @@ import com.fst.sir.security.common.SecurityUtil;
 import com.fst.sir.security.dao.UserDao;
 import com.fst.sir.security.service.facade.RoleService;
 import com.fst.sir.security.service.facade.UserService;
+import com.fst.sir.service.client.facade.NotificationClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,6 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private SecurityUtil securityUtil;
+
+    @Autowired
+    private NotificationClientService notificationClientService;
 
 
     @Override
@@ -208,9 +212,9 @@ public class UserServiceImpl implements UserService {
                 }
                 userInit.setRoles(roles);
             }
-
-
-            return userDao.save(userInit);
+            User savedUser = userDao.save(userInit);
+            notificationClientService.save("Bienvenue "+savedUser.getUsername()+", nous vous remercions de votre inscription à notre siteWeb :).",savedUser.getId(),"Notification");
+            return savedUser;
         }
     }
 
