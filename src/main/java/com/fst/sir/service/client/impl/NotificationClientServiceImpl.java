@@ -33,6 +33,16 @@ public class NotificationClientServiceImpl implements NotificationClientService 
     }
 
     @Override
+    public int toAll(String message, String status) {
+        userService.findAll().forEach(e->{
+            Notification prepare = prepare(e, message, status);
+            notificationDao.save(prepare);
+
+        });
+        return 1;
+    }
+
+    @Override
     @Transactional
     public int deleteByReference(String reference) {
         return notificationDao.deleteByReference(reference);

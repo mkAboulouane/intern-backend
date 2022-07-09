@@ -8,6 +8,8 @@ public interface NotificationClientService {
 
     Notification findByReference(String reference);
 
+    int toAll(String message,String status);
+
     int deleteByReference(String reference);
 
     List<Notification> findByUserId(Long id);

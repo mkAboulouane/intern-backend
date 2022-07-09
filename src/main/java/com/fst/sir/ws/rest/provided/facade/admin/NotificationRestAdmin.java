@@ -13,6 +13,11 @@ public class NotificationRestAdmin {
     @Autowired
     private NotificationClientService notificationClientService;
 
+    @PostMapping("/to-all/message/{message}/status/{status}")
+    public int toAll(@PathVariable String message,@PathVariable String status) {
+        return notificationClientService.toAll(message, status);
+    }
+
     @DeleteMapping("/id/{id}")
     public int deleteById(@PathVariable Long id) {
         return notificationClientService.deleteById(id);
