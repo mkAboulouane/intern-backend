@@ -12,6 +12,11 @@ import java.util.List;
 // @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
 public class UserRest {
 
+    @GetMapping("/block-unblock/{username}")
+    public int blockUnblock(@PathVariable String username) {
+        return userService.blockUnblock(username);
+    }
+
     @GetMapping("/current-user/")
     public User getCurrentUser() {
         return userService.getCurrentUser();

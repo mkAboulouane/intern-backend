@@ -28,6 +28,9 @@ public interface UserService extends UserDetailsService {
     User save(User user);
 
 
+
+    int blockUnblock(String username);
+
     User getCurrentUser();
 
 

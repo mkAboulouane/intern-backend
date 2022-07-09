@@ -36,15 +36,15 @@ public class StageBackApplication {
 
             if (false) {
                 int i = 20;
-                User userAdmin = new User("admin", "admin", "admin", "admin");
+                User userAdmin = new User("admin@gmail.com", "admin", "admin", "admin");
                 userService.saveAdmin(userAdmin);
 
-                User userGerant = new User("gerant", "gerant", "gerant", "gerant");
+                User userGerant = new User("gerant@gmail.com", "gerant", "gerant", "gerant");
                 userService.saveAGENT(userGerant);
 
                 int k=5;
                 for (int i1 = 0; i1 < k; i1++) {
-                    userService.save( new User("client"+i1, "client"+i1, "client"+i1, "client"+i1));
+                    userService.save( new User("client"+i1+"@gmail.com", "client"+i1, "client"+i1, "client"+i1));
                 }
 
 

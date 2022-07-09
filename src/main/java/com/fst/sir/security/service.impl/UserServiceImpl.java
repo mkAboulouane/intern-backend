@@ -9,11 +9,15 @@ import com.fst.sir.security.service.facade.RoleService;
 import com.fst.sir.security.service.facade.UserService;
 import com.fst.sir.service.client.facade.NotificationClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,6 +43,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private NotificationClientService notificationClientService;
 
+
+    @Override
+    public int blockUnblock(String username){
+        User user = findByUsername(username);
+        if (user == null)
+            return -1;
+        else {
+         user.setEnabled(!user.isEnabled());
+         userDao.save(user);
+         return 1;
+        }
+    }
 
     @Override
     public User getCurrentUser() {
@@ -255,11 +271,19 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsernameWithRoles(username);
         User userDaoByEmail = userDao.findByEmail(username);
-        if (user != null || user.getId() != null)
-            return user;
-        else if (userDaoByEmail != null || userDaoByEmail.getId() == null)
-            return userDaoByEmail;
-        else return null;
-
+        if (user != null || user.getId() != null) {
+            if (!user.isEnabled())
+                // 406
+//                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
+//            throw new HttpClientErrorException();
+//            throw new HttpClientErrorException(HttpStatus.NOT_ACCEPTABLE);
+                throw new HttpServerErrorException(HttpStatus.NOT_ACCEPTABLE);
+            else return user;
+        }
+        else if (userDaoByEmail != null || userDaoByEmail.getId() == null){
+            if (!userDaoByEmail.isEnabled())
+                throw new HttpServerErrorException(HttpStatus.NOT_ACCEPTABLE);
+            else return userDaoByEmail;
+        }else return null;
     }
 }
